@@ -1,0 +1,20 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "A battlehips game on the browser.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest dist/tests/",
+    "build": "npx babel src --out-dir dist",
+    "build:watch": "npx babel -w src --out-dir dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "jest": "^28.0.3"
+  }
+}
