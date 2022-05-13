@@ -378,10 +378,10 @@ describe("Attack board", () => {
 
    test("Attack same coordinates", () => {
       expect(() => gameboard.receiveAttack(0, 4)).toThrow(
-         "You already attacked coordinates [0,4]"
+         "You already attacked the following coordinates: [0,4]"
       );
       expect(() => gameboard.receiveAttack(0, 5)).toThrow(
-         "You already attacked coordinates [0,5]"
+         "You already attacked the following coordinates: [0,5]"
       );
    });
 

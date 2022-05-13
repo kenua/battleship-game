@@ -188,8 +188,16 @@ const Gameboard = function () {
    const receiveAttack = function (row = 0, column = 0) {
       let symbol = "m";
 
+      if (row > 9 || row < 0 || column > 9 || column < 0) {
+         throw new Error(
+            `Provided coordinates are not valid: [${row},${column}]`
+         );
+      }
+
       if (_board[row][column] !== "~") {
-         throw new Error(`You already attacked coordinates [${row},${column}]`);
+         throw new Error(
+            `You already attacked the following coordinates: [${row},${column}]`
+         );
       }
 
       // check if any ship has "row" and "column" as coordinates and hit it
