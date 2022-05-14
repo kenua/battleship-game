@@ -129,9 +129,9 @@ const Gameboard = function () {
           // the same coordinates of another ship
           for (let type in _ships) {
             _ships[type].ships.forEach(ship => {
-              ship.getCoors().forEach(coorsArr1 => {
-                newShip.getCoors().forEach(coorsArr2 => {
-                  if (coorsArr1[0] === coorsArr2[0] && coorsArr1[1] === coorsArr2[1]) {
+              ship.getCoors().forEach(shipCoors => {
+                newShip.getCoors().forEach(newShipCoors => {
+                  if (shipCoors[0] === newShipCoors[0] && shipCoors[1] === newShipCoors[1]) {
                     throw new Error("A new ship cannot be place over another");
                   }
                 });
@@ -150,18 +150,18 @@ const Gameboard = function () {
     }
   };
 
-  const removeShip = function (row = 0, column = 0) {
+  const removeShip = function (row = 0, cell = 0) {
     let filteredShips;
     let coors;
 
     for (let type in _ships) {
-      // search and filter out ship that has "row" and "column" as coordinates
+      // search and filter out ship that has "row" and "cell" as coordinates
       shipsLoop: for (let i = 0; i < _ships[type].ships.length; i++) {
         let currentShip = _ships[type].ships[i];
         let shipCoors = currentShip.getCoors();
 
         for (let j = 0; j < shipCoors.length; j++) {
-          if (shipCoors[j][0] === row && shipCoors[j][1] === column) {
+          if (shipCoors[j][0] === row && shipCoors[j][1] === cell) {
             filteredShips = _ships[type].ships.filter(ship => ship !== currentShip);
             coors = shipCoors;
             break shipsLoop;
@@ -178,7 +178,7 @@ const Gameboard = function () {
       }
     }
 
-    return `There is no ship in [${row},${column}] coordinates`;
+    return `There is no ship in [${row},${cell}] coordinates`;
   };
 
   const isArmyComplete = function () {
@@ -189,16 +189,16 @@ const Gameboard = function () {
     return true;
   };
 
-  const receiveAttack = function (row = 0, column = 0) {
+  const receiveAttack = function (row = 0, cell = 0) {
     let symbol = "m";
 
-    if (row > 9 || row < 0 || column > 9 || column < 0) {
-      throw new Error(`Provided coordinates are not valid: [${row},${column}]`);
+    if (row > 9 || row < 0 || cell > 9 || cell < 0) {
+      throw new Error(`Provided coordinates are not valid: [${row},${cell}]`);
     }
 
-    if (_board[row][column] !== "~") {
-      throw new Error(`You already attacked the following coordinates: [${row},${column}]`);
-    } // check if any ship has "row" and "column" as coordinates and hit it
+    if (_board[row][cell] !== "~") {
+      throw new Error(`You already attacked the following coordinates: [${row},${cell}]`);
+    } // check if any ship has "row" and "cell" as coordinates and hit it
 
 
     typeLoop: for (let type in _ships) {
@@ -207,7 +207,7 @@ const Gameboard = function () {
         let shipCoors = currentShip.getCoors();
 
         for (let j = 0; j < shipCoors.length; j++) {
-          if (shipCoors[j][0] === row && shipCoors[j][1] === column) {
+          if (shipCoors[j][0] === row && shipCoors[j][1] === cell) {
             currentShip.hit();
             symbol = "h";
             break typeLoop;
@@ -216,7 +216,7 @@ const Gameboard = function () {
       }
     }
 
-    _board[row][column] = symbol;
+    _board[row][cell] = symbol;
     return this;
   };
 
