@@ -19,7 +19,7 @@ const Game = function () {
   let playerBoard = (0, _gameboard.default)();
 
   const getComputerBoard = function () {
-    return _computerBoard.getBoardAndShips();
+    return _computerBoard.getBoard();
   };
 
   const init = function () {
@@ -61,6 +61,8 @@ const Game = function () {
   };
 
   const takeTurn = function (row, cell) {
+    if (!_canGameStart) return this;
+
     if (!_winnerMessage) {
       let attackPlayer = () => {
         try {

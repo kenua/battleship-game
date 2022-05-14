@@ -97,6 +97,14 @@ test("Take turn", () => {
    );
 });
 
+test("Can't take turn is player army is not complete", () => {
+   Game.reset();
+   Game.playerBoard.placeShip([1, 0], 4);
+   Game.init();
+
+   expect(Game.takeTurn(0, 0)).toEqual(Game);
+});
+
 test("Take turn", () => {
    Game.reset();
 

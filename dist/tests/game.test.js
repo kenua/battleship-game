@@ -106,6 +106,15 @@ test("Take turn", () => {
   expect(computerBoardWasAttacked).toBe(true);
   expect(() => _game.default.takeTurn(11, 0)).toThrow("Provided coordinates are not valid: [11,0]");
 });
+test("Can't take turn is player army is not complete", () => {
+  _game.default.reset();
+
+  _game.default.playerBoard.placeShip([1, 0], 4);
+
+  _game.default.init();
+
+  expect(_game.default.takeTurn(0, 0)).toEqual(_game.default);
+});
 test("Take turn", () => {
   _game.default.reset();
 
