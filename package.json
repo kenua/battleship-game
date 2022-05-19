@@ -2,11 +2,13 @@
   "name": "battleship",
   "version": "1.0.0",
   "description": "A battlehips game on the browser.",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "jest dist/tests/",
-    "build": "npx babel src --out-dir dist",
-    "build:watch": "npx babel -w src --out-dir dist"
+    "build": "npx webpack --config webpack.config.js",
+    "build:watch": "npx webpack --config webpack.config.js --watch",
+    "test": "jest test/tests/",
+    "test:build": "npx babel src --out-dir test",
+    "test:build:watch": "npx babel -w src --out-dir test"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,12 @@
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
-    "jest": "^28.0.3"
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.0.3",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   }
 }
