@@ -1,0 +1,99 @@
+@use 'sass:list';
+@use './variables' as *;
+
+$cellWidth: 30px;
+
+.board-section {
+   margin-bottom: 3rem;
+   & > h1 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+   }
+}
+.board {
+   font-size: 18px;
+   display: grid;
+   grid-template-columns: $cellWidth auto;
+   justify-content: center;
+}
+.board__letters-container {
+   display: grid;
+   gap: 5px;
+   grid-template-columns: repeat(10, $cellWidth);
+   grid-auto-rows: $cellWidth;
+   grid-column: 2;
+   grid-row: 1;
+   margin-bottom: 10px;
+   margin-left: 10px;
+   .board__cell {
+      border-top: none;
+      border-right: none;
+      border-left: none;
+
+      @for $i from 1 through 10 {
+         &:nth-child(#{$i})::before {
+            content: '#{$i}'; 
+         }
+      }
+   }
+}
+.board__digits-container {
+   display: grid;
+   gap: 5px;
+   grid-template-columns: $cellWidth;
+   grid-auto-rows: $cellWidth;
+   grid-column: 1;
+   grid-row: 2;
+   .board__cell {
+      border-top: none;
+      border-bottom: none;
+      border-left: none;
+
+      $letters: 'a','b','c','d','e','f','g','h','i','j';
+
+      @for $i from 1 through 10 {
+         &:nth-child(#{$i})::before {
+            content: '#{list.nth($letters, $i)}'; 
+         }
+      }
+   }
+}
+.board__cell {
+   border: 1px solid $green;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.board__board {
+   grid-row: 2;
+   margin-left: 10px;
+   display: grid;
+   gap: 5px;
+   grid-template-columns: repeat(10, $cellWidth);
+   grid-auto-rows: $cellWidth;
+   .board__cell {
+      &:hover {
+         background-color: $green;
+         color: black;
+      }
+   }
+}
+.player-buttons {
+   ul {
+      margin: 2rem 0;
+   }
+   ul li {
+      display: inline-block;
+      margin-bottom: .5rem;
+   }
+}
+.ships-table {
+   table {
+      border: 1px solid $green;
+   }
+   td, th {
+      padding: .5rem;
+      border: 1px solid $green;
+   }
+}

@@ -1,0 +1,25 @@
+@use './variables' as *;
+
+.instructions {
+   padding: 1rem;
+   border: 1px solid $green;
+   margin-top: 3rem;
+   h1 {
+      font-size: 1.4rem;
+   }
+   h2 {
+      font-size: 1.2rem;
+   }
+   h1, h2 {
+      margin: 1rem 0;
+   }
+   h1:first-child, h2:first-child {
+      margin-top: 0;
+   }
+   li {
+      margin-bottom: 1rem;
+      &:last-child {
+         margin: 0;
+      }
+   }
+}

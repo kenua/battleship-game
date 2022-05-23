@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="author" content="Kenua">
+   <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+   <section class="board-section">
+      <h1>opponents board</h1>
+      <div class="board">
+         <!-- board letters -->
+         <div class="board__letters-container">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+
+         <!-- board digits -->
+         <div class="board__digits-container">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+
+         <div id="cpuBoard" class="board__board">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+      </div>
+   </section>
+
+   <section class="board-section player-board">
+      <h1>My board</h1>
+      <div class="board">
+         <!-- board letters -->
+         <div class="board__letters-container">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+
+         <!-- board digits -->
+         <div class="board__digits-container">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+
+         <div id="playerBoard" class="board__board">
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+            <div class="board__cell"></div>
+         </div>
+      </div>
+      <div class="player-buttons">
+         <ul id="buttons-container">
+            <li>
+               <button class="button" data-length="5">Carrier</button>
+            </li>
+            <li>
+               <button class="button" data-length="4">Battleship</button>
+            </li>
+            <li>
+               <button class="button" data-length="3">Cruiser</button>
+            </li>
+            <li>
+               <button class="button" data-length="2">Destroyer</button>
+            </li>
+            <li>
+               <button id="horientationButtton" class="button">Change horientation</button>
+            </li>
+         </ul>
+
+         <div class="ships-table">
+            <table>
+               <thead>
+                  <tr>
+                    <th>Ship Class</th>
+                    <th>Size</th>
+                    <th>Max</th>
+                    <th>Placed</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                    <td>Carrier</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td class="placed-counter">0</td>
+                  </tr>
+                  <tr>
+                     <td>Battleship</td>
+                     <td>4</td>
+                     <td>2</td>
+                     <td class="placed-counter">0</td>
+                  </tr>
+                  <tr>
+                     <td>Cruiser</td>
+                     <td>3</td>
+                     <td>7</td>
+                     <td class="placed-counter">0</td>
+                  </tr>
+                  <tr>
+                     <td>Destroyer</td>
+                     <td>2</td>
+                     <td>5</td>
+                     <td class="placed-counter">0</td>
+                  </tr>
+               </tbody>
+             </table>
+         </div>
+      </div>
+   </section>
+
+   <section class="instructions">
+      <h1>Instructions</h1>
+      <h2>Board controls</h2>
+      <p>
+         To place a new ship on your board left click a cell. To remove a ship 
+         right click it. To change the horientation of a ship click the 
+         "horientation" button or Q on you keyboard. After placing all 
+         types of ships you can start the game.
+      </p>
+
+      <h2>board Symbols</h2>
+      <ul>
+         <li>
+            <p>s = A ship</p>
+         </li>
+         <li>
+            <p>m = Missed shot</p>
+         </li>
+         <li>
+            <p>h = You Hit a ship</p>
+         </li>
+      </ul>
+   </section>
+</body>
+</html>

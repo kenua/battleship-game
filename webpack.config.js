@@ -12,6 +12,12 @@ module.exports = {
       path: path.resolve(__dirname, "dist"),
    },
    devtool: "inline-source-map",
+   devServer: {
+      static: "./dist",
+   },
+   optimization: {
+      runtimeChunk: "single",
+   },
    plugins: [
       new HtmlWebpackPlugin({
          filename: "index.html",
@@ -22,9 +28,15 @@ module.exports = {
    module: {
       rules: [
          {
+            test: /\.s[ac]ss$/i,
+            use: ["style-loader", "css-loader", "sass-loader"],
+         },
+         /*
+         {
             test: /\.css$/i,
             use: ["style-loader", "css-loader"],
          },
+         */
 
          {
             test: /\.m?js$/,

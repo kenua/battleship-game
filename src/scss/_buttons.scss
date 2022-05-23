@@ -1,0 +1,15 @@
+@use './variables' as *;
+
+.button {
+   font-family: monospace;
+   text-shadow: 0 0 10px $green;
+   background-color: black;
+   color: $green;
+   padding: .5rem .8rem;
+   border: 1px solid $green;
+   cursor: pointer;
+   &:hover {
+      background-color: $green;
+      color: black;
+   }
+}
