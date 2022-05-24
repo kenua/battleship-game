@@ -1,8 +1,12 @@
+import Game from "./game.js";
 import "./scss/styles.scss";
 
 const playerBoard = document.getElementById("playerBoard");
 const cpuBoard = document.getElementById("cpuBoard");
 const buttonsContainer = document.getElementById("buttons-container");
+const shipTableCounters = document.getElementsByClassName("placed-counter");
+const errorMessage = document.getElementById("error-message");
+const startBtn = document.getElementById("start-button");
 
 const playerBoardCells = [];
 const cpuBoardCells = [];
@@ -37,6 +41,7 @@ for (let row = 0; row < 10; row++) {
 buttonsContainer.addEventListener("click", handleClickedButtons);
 playerBoard.addEventListener("mouseover", showShipPreview);
 playerBoard.addEventListener("mouseout", removeShipPreview);
+playerBoard.addEventListener("click", placeNewShip);
 
 function handleClickedButtons(e) {
    let target = e.target;
@@ -116,4 +121,78 @@ function removeShipPreview() {
    cellsToHighlight = [];
 }
 
+function placeNewShip(e) {
+   let target = e.target;
+
+   if (length && target.dataset.row && target.dataset.cell) {
+      shipsInfo = Game.playerBoard.getShips();
+      errorMessage.textContent = ""; // clear previous error message
+
+      for (let type in shipsInfo) {
+         // identify what type of ship the user is going to place
+         if (shipsInfo[type].length === length) {
+            if (shipsInfo[type].ships.length < shipsInfo[type].max) {
+               // place new ship
+               try {
+                  Game.playerBoard.placeShip(
+                     [+target.dataset.row, +target.dataset.cell],
+                     length,
+                     horientation.slice(0, 3)
+                  );
+                  shipsInfo = Game.playerBoard.getShips();
+
+                  if (shipsInfo[type].ships.length === shipsInfo[type].max) {
+                     length = null;
+                     previousClickedBtn.disabled = true;
+                     previousClickedBtn.classList.remove("button--highlighted");
+                  }
+
+                  updatePlayerBoard();
+                  removeShipPreview();
+                  updateShipsTable();
+
+                  if (Game.playerBoard.isArmyComplete()) {
+                     startBtn.disabled = false;
+                     startBtn.style.visibility = "visible";
+                  }
+
+                  // print error messages
+               } catch (e) {
+                  if (
+                     e.message === "Ship expands to wrong coordinates" ||
+                     e.message === "A new ship cannot be place over another"
+                  ) {
+                     errorMessage.textContent = "Error: " + e.message;
+                  } else {
+                     errorMessage.textContent =
+                        "Error: An error occurred while trying to place a new ship";
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+
+function updatePlayerBoard() {
+   let board = Game.playerBoard.getBoardAndShips();
+
+   for (let row = 0; row < board.length; row++) {
+      for (let cell = 0; cell < board[row].length; cell++) {
+         if (board[row][cell].search(/[shm]/) >= 0) {
+            playerBoardCells[row][cell].textContent = board[row][cell];
+            playerBoardCells[row][cell].dataset.filled = "true";
+         }
+      }
+   }
+}
+
+function updateShipsTable() {
+   let index = 0;
+
+   for (let type in shipsInfo) {
+      shipTableCounters[index].textContent = shipsInfo[type].ships.length;
+      index++;
+   }
+}
 // this file would bring the css file and dom functionality
