@@ -66,7 +66,7 @@ const Gameboard = function () {
       return boardCopy;
    };
 
-   const placeShip = function (coordinates = [0, 0], length = 2, orientation) {
+   const placeShip = function (coordinates = [0, 0], length = 2, direction) {
       if (isNaN(Number(coordinates[0])) || isNaN(Number(coordinates[1]))) {
          throw new Error("Coordinates should be numbers");
       }
@@ -77,10 +77,10 @@ const Gameboard = function () {
 
       let shipCoordinates = [[...coordinates]];
 
-      // generate coordinates that expand based on length and orientation
+      // generate coordinates that expand based on length and direction
       for (let i = 0; i < length - 1; i++) {
          // expand coordinates vertically
-         if (orientation === "ver") {
+         if (direction === "ver") {
             let coorsCopy = [...shipCoordinates[i]];
             coorsCopy[0]++;
             shipCoordinates.push(coorsCopy);

@@ -17,10 +17,9 @@ const Game = (function () {
             let row = Math.floor(Math.random() * 10);
             let column = Math.floor(Math.random() * 10);
             let length = type.length;
-            let horientation =
-               Math.floor(Math.random() * 2) === 0 ? "ver" : null;
+            let direction = Math.floor(Math.random() * 2) === 0 ? "ver" : null;
 
-            _computerBoard.placeShip([row, column], length, horientation);
+            _computerBoard.placeShip([row, column], length, direction);
             placeEnemyArmy(type);
          } catch (e) {
             if (!e.message.includes("Exceeded number of ships")) {

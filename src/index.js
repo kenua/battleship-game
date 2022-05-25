@@ -12,7 +12,7 @@ const playerBoardCells = [];
 const cpuBoardCells = [];
 
 let length = null;
-let horientation = "horizontal";
+let direction = "horizontal";
 let shipsInfo = null;
 let previousClickedBtn = null;
 let currentCell = null;
@@ -60,12 +60,12 @@ function handleClickedButtons(e) {
       target.classList.add("button--highlighted");
       previousClickedBtn = target;
 
-      // handle button that changes "horientation" variable
-   } else if (target.id === "horientationButtton") {
-      if (horientation === "horizontal") {
-         horientation = "vertical";
+      // handle button that changes "direction" variable
+   } else if (target.id === "rotation-buttton") {
+      if (direction === "horizontal") {
+         direction = "vertical";
       } else {
-         horientation = "horizontal";
+         direction = "horizontal";
       }
    }
 }
@@ -85,7 +85,7 @@ function showShipPreview(node) {
          }
 
          cellsToHighlight.push(playerBoardCells[row][cell]);
-         if (horientation === "horizontal") {
+         if (direction === "horizontal") {
             cell++;
          } else {
             row++;
@@ -140,7 +140,7 @@ function placeNewShip(e) {
                   Game.playerBoard.placeShip(
                      [+target.dataset.row, +target.dataset.cell],
                      length,
-                     horientation.slice(0, 3)
+                     direction.slice(0, 3)
                   );
                   shipsInfo = Game.playerBoard.getShips();
 
@@ -246,10 +246,10 @@ function removeShip(e) {
 
 function changeOrientation(e) {
    if (e.key === "q" || e.key === "Q") {
-      if (horientation === "horizontal") {
-         horientation = "vertical";
+      if (direction === "horizontal") {
+         direction = "vertical";
       } else {
-         horientation = "horizontal";
+         direction = "horizontal";
       }
 
       removeShipPreview();
