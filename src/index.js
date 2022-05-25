@@ -15,6 +15,7 @@ let length = null;
 let horientation = "horizontal";
 let shipsInfo = null;
 let previousClickedBtn = null;
+let currentCell = null;
 let cellsToHighlight = [];
 
 // generate player and cpu cells
@@ -39,10 +40,11 @@ for (let row = 0; row < 10; row++) {
 }
 
 buttonsContainer.addEventListener("click", handleClickedButtons);
-playerBoard.addEventListener("mouseover", showShipPreview);
+playerBoard.addEventListener("mouseover", (e) => showShipPreview(e.target));
 playerBoard.addEventListener("mouseout", removeShipPreview);
 playerBoard.addEventListener("click", placeNewShip);
 playerBoard.addEventListener("contextmenu", removeShip);
+window.addEventListener("keydown", changeOrientation);
 
 function handleClickedButtons(e) {
    let target = e.target;
@@ -68,11 +70,11 @@ function handleClickedButtons(e) {
    }
 }
 
-function showShipPreview(e) {
-   if (length && e.target.dataset.row && e.target.dataset.cell) {
-      let currentCell = e.target;
-      let { row, cell } = currentCell.dataset;
+function showShipPreview(node) {
+   if (length && node.dataset.row && node.dataset.cell) {
+      let { row, cell } = node.dataset;
 
+      currentCell = node;
       row = +row;
       cell = +cell;
 
@@ -240,5 +242,18 @@ function removeShip(e) {
    }
 
    e.preventDefault();
+}
+
+function changeOrientation(e) {
+   if (e.key === "q" || e.key === "Q") {
+      if (horientation === "horizontal") {
+         horientation = "vertical";
+      } else {
+         horientation = "horizontal";
+      }
+
+      removeShipPreview();
+      showShipPreview(currentCell);
+   }
 }
 // this file would bring the css file and dom functionality
