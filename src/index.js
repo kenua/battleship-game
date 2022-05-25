@@ -42,6 +42,7 @@ buttonsContainer.addEventListener("click", handleClickedButtons);
 playerBoard.addEventListener("mouseover", showShipPreview);
 playerBoard.addEventListener("mouseout", removeShipPreview);
 playerBoard.addEventListener("click", placeNewShip);
+playerBoard.addEventListener("contextmenu", removeShip);
 
 function handleClickedButtons(e) {
    let target = e.target;
@@ -182,6 +183,9 @@ function updatePlayerBoard() {
          if (board[row][cell].search(/[shm]/) >= 0) {
             playerBoardCells[row][cell].textContent = board[row][cell];
             playerBoardCells[row][cell].dataset.filled = "true";
+         } else {
+            playerBoardCells[row][cell].textContent = "";
+            playerBoardCells[row][cell].dataset.filled = "false";
          }
       }
    }
@@ -194,5 +198,47 @@ function updateShipsTable() {
       shipTableCounters[index].textContent = shipsInfo[type].ships.length;
       index++;
    }
+}
+
+function removeShip(e) {
+   let target = e.target;
+
+   if (
+      target.dataset.row &&
+      target.dataset.cell &&
+      target.dataset.filled &&
+      target.dataset.filled === "true"
+   ) {
+      let msg = Game.playerBoard.removeShip(
+         +target.dataset.row,
+         +target.dataset.cell
+      );
+
+      if (msg.includes("Removed ship with the following coordinates:")) {
+         let shipButtons = buttonsContainer.querySelectorAll(".button");
+         let index = 0;
+
+         shipsInfo = Game.playerBoard.getShips();
+
+         // enable back disabled buttons
+         for (let type in shipsInfo) {
+            if (shipsInfo[type].ships.length < shipsInfo[type].max) {
+               shipButtons[index].disabled = false;
+            }
+
+            index++;
+         }
+
+         if (!Game.playerBoard.isArmyComplete()) {
+            startBtn.disabled = true;
+            startBtn.style.visibility = "hidden";
+         }
+
+         updatePlayerBoard();
+         updateShipsTable();
+      }
+   }
+
+   e.preventDefault();
 }
 // this file would bring the css file and dom functionality
