@@ -40,11 +40,12 @@ for (let row = 0; row < 10; row++) {
 }
 
 buttonsContainer.addEventListener("click", handleClickedButtons);
-playerBoard.addEventListener("mouseover", (e) => showShipPreview(e.target));
+playerBoard.addEventListener("mouseover", showPreviewHandler);
 playerBoard.addEventListener("mouseout", removeShipPreview);
 playerBoard.addEventListener("click", placeNewShip);
 playerBoard.addEventListener("contextmenu", removeShip);
 window.addEventListener("keydown", changeOrientation);
+startBtn.addEventListener("click", initializeGame);
 
 function handleClickedButtons(e) {
    let target = e.target;
@@ -68,6 +69,10 @@ function handleClickedButtons(e) {
          direction = "horizontal";
       }
    }
+}
+
+function showPreviewHandler(e) {
+   showShipPreview(e.target);
 }
 
 function showShipPreview(node) {
@@ -255,5 +260,90 @@ function changeOrientation(e) {
       removeShipPreview();
       showShipPreview(currentCell);
    }
+}
+
+function initializeGame() {
+   if (Game.init()) {
+      playerBoard.removeEventListener("mouseover", showPreviewHandler);
+      playerBoard.removeEventListener("mouseout", removeShipPreview);
+      playerBoard.removeEventListener("click", placeNewShip);
+      playerBoard.removeEventListener("contextmenu", removeShip);
+      startBtn.disabled = true;
+      buttonsContainer.parentElement.style.display = "none";
+
+      cpuBoard.addEventListener("click", attackCpuBoard);
+   }
+}
+
+function attackCpuBoard(e) {
+   let target = e.target;
+
+   if (
+      target.dataset.filled === "false" &&
+      target.dataset.row &&
+      target.dataset.cell
+   ) {
+      let { row, cell } = target.dataset;
+      let turnResult = Game.takeTurn(+row, +cell);
+
+      updatePlayerBoard();
+      updateCpuBoard();
+
+      // declare a winner and print a reset button
+      if (
+         turnResult.search &&
+         turnResult.search(/Player|Computer won the match/gi) >= 0
+      ) {
+         let div = document.createElement("div");
+         let p = document.createElement("p");
+         let button = document.createElement("button");
+
+         div.className = "reset-container";
+         p.textContent = turnResult;
+         button.className = "button";
+         button.textContent = "Reset Game";
+         div.append(p, button);
+         document.body.firstElementChild.after(div);
+
+         button.addEventListener("click", resetGame);
+         cpuBoard.removeEventListener("click", attackCpuBoard);
+      }
+   }
+}
+
+function updateCpuBoard() {
+   let board = Game.getComputerBoard();
+
+   for (let row = 0; row < board.length; row++) {
+      for (let cell = 0; cell < board[row].length; cell++) {
+         if (board[row][cell].search(/[hm]/) >= 0) {
+            cpuBoardCells[row][cell].textContent = board[row][cell];
+            cpuBoardCells[row][cell].dataset.filled = "true";
+         } else {
+            cpuBoardCells[row][cell].textContent = "";
+            cpuBoardCells[row][cell].dataset.filled = "false";
+         }
+      }
+   }
+}
+
+function resetGame() {
+   Game.reset();
+
+   document.body.firstElementChild.nextElementSibling.remove();
+   updateCpuBoard();
+   cpuBoard.removeEventListener("click", attackCpuBoard);
+   playerBoard.addEventListener("mouseover", showPreviewHandler);
+   playerBoard.addEventListener("mouseout", removeShipPreview);
+   playerBoard.addEventListener("click", placeNewShip);
+   playerBoard.addEventListener("contextmenu", removeShip);
+   updatePlayerBoard();
+   buttonsContainer.parentElement.style.display = "block";
+   [...buttonsContainer.querySelectorAll(".button")].forEach(
+      (button) => (button.disabled = false)
+   );
+   [...shipTableCounters].forEach((counter) => (counter.textContent = "0"));
+   startBtn.disabled = true;
+   startBtn.style.visibility = "hidden";
 }
 // this file would bring the css file and dom functionality

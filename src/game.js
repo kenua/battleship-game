@@ -95,6 +95,7 @@ const Game = (function () {
    };
 
    const reset = function () {
+      _winnerMessage = undefined;
       _canGameStart = false;
       _computerBoard = Gameboard();
       this.playerBoard = Gameboard();
