@@ -110,6 +110,7 @@ function showShipPreview(node) {
          cellsToHighlight.forEach((cell) => {
             if (cell.dataset.filled === "false") {
                cell.style.backgroundColor = "#1cb517";
+               cell.style.borderColor = "#1cb517";
             } else {
                cell.style.backgroundColor = "#b51717";
                cell.style.color = "black";
@@ -243,6 +244,7 @@ function removeShip(e) {
          }
 
          updatePlayerBoard();
+         showShipPreview(currentCell);
          updateShipsTable();
       }
    }

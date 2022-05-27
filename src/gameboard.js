@@ -5,8 +5,8 @@ const Gameboard = function () {
    let _ships = {
       type1: { ships: [], length: 5, max: 1 },
       type2: { ships: [], length: 4, max: 2 },
-      type3: { ships: [], length: 3, max: 7 },
-      type4: { ships: [], length: 2, max: 5 },
+      type3: { ships: [], length: 3, max: 3 },
+      type4: { ships: [], length: 2, max: 4 },
    };
 
    // create 10 rows and 10 cells for _board
