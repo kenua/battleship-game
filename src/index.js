@@ -44,7 +44,7 @@ playerBoard.addEventListener("mouseover", showPreviewHandler);
 playerBoard.addEventListener("mouseout", removeShipPreview);
 playerBoard.addEventListener("click", placeNewShip);
 playerBoard.addEventListener("contextmenu", removeShip);
-window.addEventListener("keydown", changeOrientation);
+window.addEventListener("keydown", rotateShip);
 startBtn.addEventListener("click", initializeGame);
 
 function handleClickedButtons(e) {
@@ -61,7 +61,7 @@ function handleClickedButtons(e) {
       target.classList.add("button--highlighted");
       previousClickedBtn = target;
 
-      // handle button that changes "direction" variable
+      // handle rotation-button
    } else if (target.id === "rotation-buttton") {
       if (direction === "horizontal") {
          direction = "vertical";
@@ -149,6 +149,7 @@ function placeNewShip(e) {
                   );
                   shipsInfo = Game.playerBoard.getShips();
 
+                  // disable ship button when getting to maximum number of ships placed
                   if (shipsInfo[type].ships.length === shipsInfo[type].max) {
                      length = null;
                      previousClickedBtn.disabled = true;
@@ -249,7 +250,7 @@ function removeShip(e) {
    e.preventDefault();
 }
 
-function changeOrientation(e) {
+function rotateShip(e) {
    if (e.key === "q" || e.key === "Q") {
       if (direction === "horizontal") {
          direction = "vertical";
@@ -346,4 +347,3 @@ function resetGame() {
    startBtn.disabled = true;
    startBtn.style.visibility = "hidden";
 }
-// this file would bring the css file and dom functionality
