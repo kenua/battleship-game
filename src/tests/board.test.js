@@ -119,27 +119,27 @@ describe("Get board with ships", () => {
       gameboard.placeShip([7, 0], 3, "ver");
       gameboard.placeShip([7, 2], 3, "ver");
       gameboard.placeShip([7, 4], 3, "ver");
-      gameboard.placeShip([0, 6], 3);
-      gameboard.placeShip([4, 5], 3, "ver");
-      gameboard.placeShip([8, 7], 3);
-      gameboard.placeShip([5, 8], 3, "ver");
+      // gameboard.placeShip([0, 6], 3);
+      // gameboard.placeShip([4, 5], 3, "ver");
+      // gameboard.placeShip([8, 7], 3);
+      // gameboard.placeShip([5, 8], 3, "ver");
 
       gameboard.placeShip([9, 6], 2);
       gameboard.placeShip([1, 9], 2, "ver");
       gameboard.placeShip([4, 9], 2, "ver");
       gameboard.placeShip([3, 6], 2);
-      gameboard.placeShip([5, 7], 2, "ver");
+      // gameboard.placeShip([5, 7], 2, "ver");
 
       expect(gameboard.getBoardAndShips()).toEqual([
-         ["s", "s", "s", "s", "s", "~", "s", "s", "s", "~"],
+         ["s", "s", "s", "s", "s", "~", "~", "~", "~", "~"],
          ["~", "s", "~", "~", "~", "~", "~", "~", "~", "s"],
          ["~", "s", "~", "~", "~", "~", "~", "~", "~", "s"],
          ["~", "s", "~", "~", "~", "~", "s", "s", "~", "~"],
-         ["~", "s", "~", "~", "~", "s", "~", "~", "~", "s"],
-         ["~", "~", "~", "~", "~", "s", "~", "s", "s", "s"],
-         ["s", "s", "s", "s", "~", "s", "~", "s", "s", "~"],
-         ["s", "~", "s", "~", "s", "~", "~", "~", "s", "~"],
-         ["s", "~", "s", "~", "s", "~", "~", "s", "s", "s"],
+         ["~", "s", "~", "~", "~", "~", "~", "~", "~", "s"],
+         ["~", "~", "~", "~", "~", "~", "~", "~", "~", "s"],
+         ["s", "s", "s", "s", "~", "~", "~", "~", "~", "~"],
+         ["s", "~", "s", "~", "s", "~", "~", "~", "~", "~"],
+         ["s", "~", "s", "~", "s", "~", "~", "~", "~", "~"],
          ["s", "~", "s", "~", "s", "~", "s", "s", "~", "~"],
       ]);
    });
@@ -192,10 +192,9 @@ describe("Prevent exceed maximum number of ships", () => {
       gameboard3.placeShip([1, 0], 2);
       gameboard3.placeShip([2, 0], 2);
       gameboard3.placeShip([3, 0], 2);
-      gameboard3.placeShip([4, 0], 2);
 
       expect(() => gameboard3.placeShip([5, 0], 2)).toThrow(
-         "Exceeded number of ships: maximun number for 2 length ships is 5"
+         "Exceeded number of ships: maximun number for 2 length ships is 4"
       );
    });
 });
@@ -212,19 +211,14 @@ describe("Place new ships", () => {
       gameboard4.placeShip([3, 0], 3);
       gameboard4.placeShip([4, 0], 3);
       gameboard4.placeShip([5, 0], 3);
-      gameboard4.placeShip([6, 0], 3);
-      gameboard4.placeShip([7, 0], 3);
-      gameboard4.placeShip([8, 0], 3);
-      gameboard4.placeShip([9, 0], 3);
 
       gameboard4.placeShip([0, 5], 2);
       gameboard4.placeShip([1, 4], 2);
       gameboard4.placeShip([2, 4], 2);
       gameboard4.placeShip([3, 3], 2);
-      gameboard4.placeShip([4, 3], 2);
 
       expect(() => gameboard4.placeShip([0, 7], 2)).toThrow(
-         "Exceeded number of ships: maximun number for 2 length ships is 5"
+         "Exceeded number of ships: maximun number for 2 length ships is 4"
       );
       expect(() => gameboard4.placeShip([0, 7], 5, "ver")).toThrow(
          "Exceeded number of ships: maximun number for 5 length ships is 1"
@@ -264,15 +258,10 @@ describe("Remove ships", () => {
       gameboard.placeShip([3, 0], 3);
       gameboard.placeShip([4, 0], 3); // (*)
       gameboard.placeShip([5, 0], 3);
-      gameboard.placeShip([6, 0], 3);
-      gameboard.placeShip([7, 0], 3);
-      gameboard.placeShip([8, 0], 3);
-      gameboard.placeShip([9, 0], 3);
 
       gameboard.placeShip([0, 5], 2);
       gameboard.placeShip([1, 4], 2);
       gameboard.placeShip([2, 4], 2);
-      gameboard.placeShip([3, 3], 2);
       gameboard.placeShip([4, 3], 2); // (*)
 
       // remove ships pointing to the coordinates of the first chunk
@@ -290,12 +279,12 @@ describe("Remove ships", () => {
       expect(gameboard.removeShip(4, 1)).toBe(
          "Removed ship with the following coordinates: [4, 0], [4, 1], [4, 2]"
       );
-      expect(gameboard.getShips().type3.ships.length).toBe(6);
+      expect(gameboard.getShips().type3.ships.length).toBe(2);
 
       expect(gameboard.removeShip(4, 4)).toBe(
          "Removed ship with the following coordinates: [4, 3], [4, 4]"
       );
-      expect(gameboard.getShips().type4.ships.length).toBe(4);
+      expect(gameboard.getShips().type4.ships.length).toBe(3);
    });
 
    test("Remove ship that does not exist", () => {
@@ -323,16 +312,11 @@ describe("Checking army", () => {
       gameboard.placeShip([3, 0], 3);
       gameboard.placeShip([4, 0], 3);
       gameboard.placeShip([5, 0], 3);
-      gameboard.placeShip([6, 0], 3);
-      gameboard.placeShip([7, 0], 3);
-      gameboard.placeShip([8, 0], 3);
-      gameboard.placeShip([9, 0], 3);
 
       gameboard.placeShip([0, 5], 2);
       gameboard.placeShip([1, 4], 2);
       gameboard.placeShip([2, 4], 2);
       gameboard.placeShip([3, 3], 2);
-      gameboard.placeShip([4, 3], 2);
 
       expect(gameboard.isArmyComplete()).toBe(true);
    });

@@ -41,6 +41,8 @@ const Game = (function () {
 
       if (playerBoard.isArmyComplete()) {
          _canGameStart = true;
+         this.playerBoard.placeShip = null;
+         this.playerBoard.removeShip = null;
          return true;
       } else {
          return false;

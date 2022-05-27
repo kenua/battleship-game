@@ -29,9 +29,9 @@ const Game = function () {
         let row = Math.floor(Math.random() * 10);
         let column = Math.floor(Math.random() * 10);
         let length = type.length;
-        let horientation = Math.floor(Math.random() * 2) === 0 ? "ver" : null;
+        let direction = Math.floor(Math.random() * 2) === 0 ? "ver" : null;
 
-        _computerBoard.placeShip([row, column], length, horientation);
+        _computerBoard.placeShip([row, column], length, direction);
 
         placeEnemyArmy(type);
       } catch (e) {
@@ -54,6 +54,8 @@ const Game = function () {
 
     if (playerBoard.isArmyComplete()) {
       _canGameStart = true;
+      this.playerBoard.placeShip = null;
+      this.playerBoard.removeShip = null;
       return true;
     } else {
       return false;
@@ -103,6 +105,7 @@ const Game = function () {
   };
 
   const reset = function () {
+    _winnerMessage = undefined;
     _canGameStart = false;
     _computerBoard = (0, _gameboard.default)();
     this.playerBoard = (0, _gameboard.default)();

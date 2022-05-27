@@ -25,12 +25,12 @@ const Gameboard = function () {
     type3: {
       ships: [],
       length: 3,
-      max: 7
+      max: 3
     },
     type4: {
       ships: [],
       length: 2,
-      max: 5
+      max: 4
     }
   }; // create 10 rows and 10 cells for _board
 
@@ -89,7 +89,7 @@ const Gameboard = function () {
     return boardCopy;
   };
 
-  const placeShip = function (coordinates = [0, 0], length = 2, orientation) {
+  const placeShip = function (coordinates = [0, 0], length = 2, direction) {
     if (isNaN(Number(coordinates[0])) || isNaN(Number(coordinates[1]))) {
       throw new Error("Coordinates should be numbers");
     }
@@ -98,11 +98,11 @@ const Gameboard = function () {
       throw new Error("Length should be a number between 2 and 5");
     }
 
-    let shipCoordinates = [[...coordinates]]; // generate coordinates that expand based on length and orientation
+    let shipCoordinates = [[...coordinates]]; // generate coordinates that expand based on length and direction
 
     for (let i = 0; i < length - 1; i++) {
       // expand coordinates vertically
-      if (orientation === "ver") {
+      if (direction === "ver") {
         let coorsCopy = [...shipCoordinates[i]];
         coorsCopy[0]++;
         shipCoordinates.push(coorsCopy); // expand coordinates horizontally

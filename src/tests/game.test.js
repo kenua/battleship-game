@@ -24,16 +24,11 @@ test("Place computer and player ships", () => {
    Game.playerBoard.placeShip([3, 0], 3);
    Game.playerBoard.placeShip([4, 0], 3);
    Game.playerBoard.placeShip([5, 0], 3);
-   Game.playerBoard.placeShip([6, 0], 3);
-   Game.playerBoard.placeShip([7, 0], 3);
-   Game.playerBoard.placeShip([8, 0], 3);
-   Game.playerBoard.placeShip([9, 0], 3);
 
    Game.playerBoard.placeShip([0, 5], 2);
    Game.playerBoard.placeShip([1, 4], 2);
    Game.playerBoard.placeShip([2, 4], 2);
    Game.playerBoard.placeShip([3, 3], 2);
-   Game.playerBoard.placeShip([4, 3], 2);
 
    expect(Game.init()).toBe(true);
 });
@@ -49,16 +44,11 @@ test("Take turn", () => {
    Game.playerBoard.placeShip([3, 0], 3);
    Game.playerBoard.placeShip([4, 0], 3);
    Game.playerBoard.placeShip([5, 0], 3);
-   Game.playerBoard.placeShip([6, 0], 3);
-   Game.playerBoard.placeShip([7, 0], 3);
-   Game.playerBoard.placeShip([8, 0], 3);
-   Game.playerBoard.placeShip([9, 0], 3);
 
    Game.playerBoard.placeShip([0, 5], 2);
    Game.playerBoard.placeShip([1, 4], 2);
    Game.playerBoard.placeShip([2, 4], 2);
    Game.playerBoard.placeShip([3, 3], 2);
-   Game.playerBoard.placeShip([4, 3], 2);
 
    Game.init();
    Game.takeTurn(5, 8);
@@ -105,7 +95,7 @@ test("Can't take turn is player army is not complete", () => {
    expect(Game.takeTurn(0, 0)).toEqual(Game);
 });
 
-test("Take turn", () => {
+test("Play until getting a winner", () => {
    Game.reset();
 
    Game.playerBoard.placeShip([0, 0], 5);
@@ -116,16 +106,11 @@ test("Take turn", () => {
    Game.playerBoard.placeShip([3, 0], 3);
    Game.playerBoard.placeShip([4, 0], 3);
    Game.playerBoard.placeShip([5, 0], 3);
-   Game.playerBoard.placeShip([6, 0], 3);
-   Game.playerBoard.placeShip([7, 0], 3);
-   Game.playerBoard.placeShip([8, 0], 3);
-   Game.playerBoard.placeShip([9, 0], 3);
 
    Game.playerBoard.placeShip([0, 5], 2);
    Game.playerBoard.placeShip([1, 4], 2);
    Game.playerBoard.placeShip([2, 4], 2);
    Game.playerBoard.placeShip([3, 3], 2);
-   Game.playerBoard.placeShip([4, 3], 2);
 
    Game.init();
 
@@ -143,4 +128,27 @@ test("Take turn", () => {
 
    expect(Game.getWinner()).toMatch(/(Computer|Player) won the match/gi);
    expect(Game.takeTurn(0, 0)).toMatch(/(Computer|Player) won the match/gi);
+});
+
+test("Block some player actions after calling Game.init", () => {
+   Game.reset();
+
+   Game.playerBoard.placeShip([0, 0], 5);
+
+   Game.playerBoard.placeShip([1, 0], 4);
+   Game.playerBoard.placeShip([2, 0], 4);
+
+   Game.playerBoard.placeShip([3, 0], 3);
+   Game.playerBoard.placeShip([4, 0], 3);
+   Game.playerBoard.placeShip([5, 0], 3);
+
+   Game.playerBoard.placeShip([0, 5], 2);
+   Game.playerBoard.placeShip([1, 4], 2);
+   Game.playerBoard.placeShip([2, 4], 2);
+   Game.playerBoard.placeShip([3, 3], 2);
+
+   Game.init();
+
+   expect(Game.playerBoard.placeShip).toBe(null);
+   expect(Game.playerBoard.removeShip).toBe(null);
 });
