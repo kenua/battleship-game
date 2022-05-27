@@ -3,10 +3,10 @@ import Ship from "./ship.js";
 const Gameboard = function () {
    let _board = [];
    let _ships = {
-      type1: { ships: [], length: 5, max: 1 },
-      type2: { ships: [], length: 4, max: 2 },
-      type3: { ships: [], length: 3, max: 3 },
-      type4: { ships: [], length: 2, max: 4 },
+      type1: { ships: [], length: 5, max: 1, symbol: "A" },
+      type2: { ships: [], length: 4, max: 2, symbol: "B" },
+      type3: { ships: [], length: 3, max: 3, symbol: "C" },
+      type4: { ships: [], length: 2, max: 4, symbol: "D" },
    };
 
    // create 10 rows and 10 cells for _board
@@ -57,7 +57,7 @@ const Gameboard = function () {
                let [row, column] = coors;
 
                if (boardCopy[row][column] === "~") {
-                  boardCopy[row][column] = "s";
+                  boardCopy[row][column] = _ships[type].symbol;
                }
             });
          }
@@ -186,7 +186,7 @@ const Gameboard = function () {
    };
 
    const receiveAttack = function (row = 0, cell = 0) {
-      let symbol = "m";
+      let symbol = "M";
 
       if (row > 9 || row < 0 || cell > 9 || cell < 0) {
          throw new Error(
@@ -209,7 +209,7 @@ const Gameboard = function () {
             for (let j = 0; j < shipCoors.length; j++) {
                if (shipCoors[j][0] === row && shipCoors[j][1] === cell) {
                   currentShip.hit();
-                  symbol = "h";
+                  symbol = "H";
                   break typeLoop;
                }
             }
