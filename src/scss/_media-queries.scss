@@ -1,22 +1,13 @@
-@media only screen and (min-width: 800px) {
-   .player-board {
-      max-width: 1200px;
-      margin: 0 auto;
+@media only screen and (min-width: 1000px) {
+   .grid {
       display: grid;
-      column-gap: 1rem;
-      grid-template-columns: repeat(3, 1fr);
-      h1 {
-         grid-column: 1 / -1;
-         grid-row: 1;
-      }
-      .board {
-         grid-column: 2 / 3;
-         grid-row: 2;
-      }
-      .player-buttons {
-         grid-column: 3 / 4;
-         grid-row: 2;
-      }
+      grid-template-columns: 1fr 1fr;
+   }
+   .ships-table {
+      width: 100%;
+   }
+   #cpu-board-container {
+      margin-top: 0;
    }
    .player-buttons {
       ul {
@@ -30,14 +21,5 @@
          display: block;
          width: 100%;
       }
-   }
-}
-@media only screen and (min-width: 1100px) {
-   .instructions {
-      margin: 0;
-      max-width: 280px;
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
    }
 }

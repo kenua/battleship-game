@@ -3,12 +3,12 @@
 
 $cellWidth: 30px;
 
-.board-section {
-   margin-bottom: 3rem;
-   & > h1 {
+.board-container {
+   h1 {
       text-align: center;
       text-transform: uppercase;
       font-size: 1.5rem;
+      margin-bottom: 1rem;
    }
 }
 .board {
@@ -19,17 +19,13 @@ $cellWidth: 30px;
 }
 .board__letters-container {
    display: grid;
-   gap: 5px;
+   gap: 3px;
    grid-template-columns: repeat(10, $cellWidth);
    grid-auto-rows: $cellWidth;
    grid-column: 2;
    grid-row: 1;
-   margin-bottom: 10px;
-   margin-left: 10px;
    .board__cell {
-      border-top: none;
-      border-right: none;
-      border-left: none;
+      border: none;
 
       @for $i from 1 through 10 {
          &:nth-child(#{$i})::before {
@@ -40,15 +36,13 @@ $cellWidth: 30px;
 }
 .board__digits-container {
    display: grid;
-   gap: 5px;
+   gap: 3px;
    grid-template-columns: $cellWidth;
    grid-auto-rows: $cellWidth;
    grid-column: 1;
    grid-row: 2;
    .board__cell {
-      border-top: none;
-      border-bottom: none;
-      border-left: none;
+      border: none;
 
       $letters: 'a','b','c','d','e','f','g','h','i','j';
 
@@ -67,9 +61,8 @@ $cellWidth: 30px;
 }
 .board__board {
    grid-row: 2;
-   margin-left: 10px;
    display: grid;
-   gap: 5px;
+   gap: 3px;
    grid-template-columns: repeat(10, $cellWidth);
    grid-auto-rows: $cellWidth;
    .board__cell {
@@ -81,12 +74,21 @@ $cellWidth: 30px;
 }
 #error-message {
    font-size: 1rem;
+   text-align: center;
+   max-width: 500px;
    grid-column: 1 / -1;
    margin-top: 1rem;
-   margin-left: .5rem;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 0 1rem;
+}
+#cpu-board-container {
+   display: none;
+   margin-top: 2rem;
 }
 .player-buttons {
    ul {
+      text-align: center;
       margin: 2rem 0;
    }
    ul li {
@@ -95,11 +97,12 @@ $cellWidth: 30px;
    }
 }
 .ships-table {
+   font-size: 1rem;
+   border: 1px solid $green;
    margin-bottom: 2rem;
+   margin-left: auto;
+   margin-right: auto;
 
-   table {
-      border: 1px solid $green;
-   }
    td, th {
       padding: .5rem;
       border: 1px solid $green;

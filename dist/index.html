@@ -6,113 +6,82 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="author" content="Kenua">
    <title>Web Battleship</title>
-<script defer src="runtimebe08cb898b3261242863.js"></script><script defer src="index497160bc89a0fb559ded.js"></script></head>
+<script defer src="runtimebe08cb898b3261242863.js"></script><script defer src="index4acff72bdcd9904a67d7.js"></script></head>
 <body>
-   <section class="board-section">
-      <h1>opponents board</h1>
-      <div class="board">
-         <!-- board letters -->
-         <div class="board__letters-container">
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
+   <section class="grid">
+      <!-- PLAYER BOARD -->
+      <div class="board-container player-board">
+         <h1>Your Board</h1>
+         <div class="board">
+            <!-- board letters -->
+            <div class="board__letters-container">
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+            </div>
+   
+            <!-- board digits -->
+            <div class="board__digits-container">
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+               <div class="board__cell"></div>
+            </div>
+   
+            <div id="playerBoard" class="board__board"></div>
          </div>
-
-         <!-- board digits -->
-         <div class="board__digits-container">
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-         </div>
-
-         <div id="cpuBoard" class="board__board"></div>
-      </div>
-   </section>
-
-   <section class="board-section player-board">
-      <h1>My board</h1>
-      <div class="board">
-         <!-- board letters -->
-         <div class="board__letters-container">
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-         </div>
-
-         <!-- board digits -->
-         <div class="board__digits-container">
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-            <div class="board__cell"></div>
-         </div>
-
-         <div id="playerBoard" class="board__board"></div>
-
          <p id="error-message"></p>
       </div>
-      <div class="player-buttons">
-         <ul id="buttons-container">
-            <li>
-               <button class="button" data-length="5">Carrier</button>
-            </li>
-            <li>
-               <button class="button" data-length="4">Battleship</button>
-            </li>
-            <li>
-               <button class="button" data-length="3">Cruiser</button>
-            </li>
-            <li>
-               <button class="button" data-length="2">Destroyer</button>
-            </li>
-            <li>
-               <button id="rotation-buttton" class="button">Rotate Ship (Q)</button>
-            </li>
-         </ul>
 
-         <div class="ships-table">
-            <table>
+      <!-- CONTROLS & OPPONENT'S BOARD -->
+      <div>
+         <div class="player-buttons">
+            <ul id="buttons-container">
+               <li>
+                  <button class="button" data-length="5">Carrier</button>
+               </li>
+               <li>
+                  <button class="button" data-length="4">Battleship</button>
+               </li>
+               <li>
+                  <button class="button" data-length="3">Cruiser</button>
+               </li>
+               <li>
+                  <button class="button" data-length="2">Destroyer</button>
+               </li>
+               <li>
+                  <button id="rotation-buttton" class="button">Rotate Ship (Q)</button>
+               </li>
+            </ul>
+
+            <table class="ships-table">
                <thead>
                   <tr>
-                    <th>Ship Class</th>
-                    <th>Size</th>
-                    <th>Max</th>
-                    <th>Placed</th>
+                     <th>Ship Class</th>
+                     <th>Size</th>
+                     <th>Max</th>
+                     <th>Placed</th>
                   </tr>
                </thead>
                <tbody>
                   <tr>
-                    <td>Carrier (A)</td>
-                    <td>5</td>
-                    <td>1</td>
-                    <td class="placed-counter">0</td>
+                     <td>Carrier (A)</td>
+                     <td>5</td>
+                     <td>1</td>
+                     <td class="placed-counter">0</td>
                   </tr>
                   <tr>
                      <td>Battleship (B)</td>
@@ -133,10 +102,45 @@
                      <td class="placed-counter">0</td>
                   </tr>
                </tbody>
-             </table>
+            </table>
+
+            <button id="start-button" class="button" disabled>Start Battle!</button>
          </div>
 
-         <button id="start-button" class="button" disabled>Start Battle!</button>
+         <div id="cpu-board-container" class="board-container">
+            <h1>opponents board</h1>
+            <div class="board">
+               <!-- board letters -->
+               <div class="board__letters-container">
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+               </div>
+      
+               <!-- board digits -->
+               <div class="board__digits-container">
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+                  <div class="board__cell"></div>
+               </div>
+      
+               <div id="cpuBoard" class="board__board"></div>
+            </div>
+         </div>
       </div>
    </section>
 

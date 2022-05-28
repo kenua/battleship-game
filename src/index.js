@@ -2,6 +2,7 @@ import Game from "./game.js";
 import "./scss/styles.scss";
 
 const playerBoard = document.getElementById("playerBoard");
+const cpuBoardContainer = document.getElementById("cpu-board-container");
 const cpuBoard = document.getElementById("cpuBoard");
 const buttonsContainer = document.getElementById("buttons-container");
 const shipTableCounters = document.getElementsByClassName("placed-counter");
@@ -273,6 +274,7 @@ function initializeGame() {
       playerBoard.removeEventListener("contextmenu", removeShip);
       startBtn.disabled = true;
       buttonsContainer.parentElement.style.display = "none";
+      cpuBoardContainer.style.display = "block";
 
       cpuBoard.addEventListener("click", attackCpuBoard);
    }
@@ -346,6 +348,7 @@ function resetGame() {
       (button) => (button.disabled = false)
    );
    [...shipTableCounters].forEach((counter) => (counter.textContent = "0"));
+   cpuBoardContainer.style.display = "";
    startBtn.disabled = true;
    startBtn.style.visibility = "hidden";
 }
