@@ -54,6 +54,8 @@ $cellWidth: 30px;
    }
 }
 .board__cell {
+   background-color: black;
+   color: $green;
    border: 1px solid $green;
    display: flex;
    justify-content: center;

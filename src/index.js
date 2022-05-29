@@ -25,16 +25,17 @@ for (let row = 0; row < 10; row++) {
    cpuBoardCells.push([]);
 
    for (let cell = 0; cell < 10; cell++) {
-      let div = document.createElement("div");
+      let cellBtn = document.createElement("button");
 
-      div.className = "board__cell";
-      div.dataset.row = row;
-      div.dataset.cell = cell;
-      div.dataset.filled = "false";
-      playerBoard.append(div);
-      playerBoardCells[row].push(div);
+      cellBtn.type = "button";
+      cellBtn.className = "board__cell";
+      cellBtn.dataset.row = row;
+      cellBtn.dataset.cell = cell;
+      cellBtn.dataset.filled = "false";
+      playerBoard.append(cellBtn);
+      playerBoardCells[row].push(cellBtn);
 
-      let clone = div.cloneNode();
+      let clone = cellBtn.cloneNode();
       cpuBoard.append(clone);
       cpuBoardCells[row].push(clone);
    }
