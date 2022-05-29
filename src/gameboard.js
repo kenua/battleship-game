@@ -186,7 +186,7 @@ const Gameboard = function () {
    };
 
    const receiveAttack = function (row = 0, cell = 0) {
-      let symbol = "M";
+      let symbol = "/";
 
       if (row > 9 || row < 0 || cell > 9 || cell < 0) {
          throw new Error(
@@ -209,7 +209,7 @@ const Gameboard = function () {
             for (let j = 0; j < shipCoors.length; j++) {
                if (shipCoors[j][0] === row && shipCoors[j][1] === cell) {
                   currentShip.hit();
-                  symbol = "H";
+                  symbol = "X";
                   break typeLoop;
                }
             }

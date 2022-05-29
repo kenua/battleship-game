@@ -190,7 +190,7 @@ function updatePlayerBoard() {
 
    for (let row = 0; row < board.length; row++) {
       for (let cell = 0; cell < board[row].length; cell++) {
-         if (board[row][cell].search(/[ABCDHM]/) >= 0) {
+         if (board[row][cell].search(/[ABCDX/]/) >= 0) {
             playerBoardCells[row][cell].textContent = board[row][cell];
             playerBoardCells[row][cell].dataset.filled = "true";
          } else {
@@ -321,7 +321,7 @@ function updateCpuBoard() {
 
    for (let row = 0; row < board.length; row++) {
       for (let cell = 0; cell < board[row].length; cell++) {
-         if (board[row][cell].search(/[HM]/) >= 0) {
+         if (board[row][cell].search(/[X/]/) >= 0) {
             cpuBoardCells[row][cell].textContent = board[row][cell];
             cpuBoardCells[row][cell].dataset.filled = "true";
          } else {
