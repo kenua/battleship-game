@@ -4,6 +4,8 @@ const Game = (function () {
    let _winnerMessage;
    let _canGameStart = false;
    let _computerBoard = Gameboard();
+   let _cpuPreviousAttack = null;
+   let _cpuNextAttack = null;
    let playerBoard = Gameboard();
 
    const getComputerBoard = function () {
@@ -53,12 +55,16 @@ const Game = (function () {
       if (!_canGameStart) return this;
 
       if (!_winnerMessage) {
-         let attackPlayer = () => {
+         let attackRandomCell = () => {
             try {
                let row = Math.floor(Math.random() * 10);
                let cell = Math.floor(Math.random() * 10);
+               let attackResult = this.playerBoard.receiveAttack(row, cell);
 
-               this.playerBoard.receiveAttack(row, cell);
+               _cpuPreviousAttack =
+                  attackResult && attackResult.symbol === "X"
+                     ? attackResult
+                     : null;
             } catch (e) {
                if (
                   e.message.includes(
@@ -67,6 +73,146 @@ const Game = (function () {
                ) {
                   attackPlayer();
                }
+            }
+         };
+
+         let attackPlayer = () => {
+            let updateNextAttackCoordinates = () => {
+               let pb = this.playerBoard.getBoard();
+
+               switch (_cpuNextAttack.direction) {
+                  case "above":
+                     if (pb[_cpuNextAttack.row - 1]) {
+                        _cpuNextAttack.row = _cpuNextAttack.row - 1;
+                     } else {
+                        _cpuNextAttack = null;
+                     }
+                     break;
+
+                  case "next":
+                     if (pb[_cpuNextAttack.row][_cpuNextAttack.column + 1]) {
+                        _cpuNextAttack.column = _cpuNextAttack.column + 1;
+                     } else {
+                        _cpuNextAttack = null;
+                     }
+                     break;
+
+                  case "below":
+                     if (pb[_cpuNextAttack.row + 1]) {
+                        _cpuNextAttack.row = _cpuNextAttack.row + 1;
+                     } else {
+                        _cpuNextAttack = null;
+                     }
+                     break;
+
+                  case "before":
+                     if (pb[_cpuNextAttack.row][_cpuNextAttack.column - 1]) {
+                        _cpuNextAttack.column = _cpuNextAttack.column - 1;
+                     } else {
+                        _cpuNextAttack = null;
+                     }
+                     break;
+               }
+            };
+
+            if (_cpuPreviousAttack && _cpuNextAttack) {
+               console.log("previousAttack and nextAttack are defined");
+               try {
+                  let attackResult = this.playerBoard.receiveAttack(
+                     _cpuNextAttack.row,
+                     _cpuNextAttack.column
+                  );
+
+                  // update _cpuNextAttack
+                  if (attackResult && attackResult.symbol === "X") {
+                     _cpuNextAttack = { ..._cpuNextAttack };
+                     updateNextAttackCoordinates();
+                  } else {
+                     _cpuNextAttack = null;
+                  }
+               } catch (e) {
+                  if (
+                     e.message.includes("Provided coordinates are not valid") ||
+                     e.message.includes(
+                        "You already attacked the following coordinates"
+                     )
+                  ) {
+                     console.log(e.message);
+                     _cpuNextAttack = null;
+                     attackPlayer();
+                  }
+               }
+               // check and attack a cell that is around an X
+            } else if (_cpuPreviousAttack) {
+               console.log("previousAttack is defined and nextAttack is not");
+               let pb = playerBoard.getBoard();
+               let { row, column, symbol } = _cpuPreviousAttack;
+               let nearCells = [];
+               let cellsCounter = 0;
+
+               // populate nearCells
+               pb[row - 1] && pb[row - 1][column]
+                  ? nearCells.push({
+                       cell: pb[row - 1][column],
+                       direction: "above",
+                       row: row - 1,
+                       column: column,
+                    })
+                  : null;
+               pb[row] && pb[row][column + 1]
+                  ? nearCells.push({
+                       cell: pb[row][column + 1],
+                       direction: "next",
+                       row: row,
+                       column: column + 1,
+                    })
+                  : null;
+               pb[row + 1] && pb[row + 1][column]
+                  ? nearCells.push({
+                       cell: pb[row + 1][column],
+                       direction: "below",
+                       row: row + 1,
+                       column: column,
+                    })
+                  : null;
+               pb[row] && pb[row][column - 1]
+                  ? nearCells.push({
+                       cell: pb[row][column - 1],
+                       direction: "before",
+                       row: row,
+                       column: column - 1,
+                    })
+                  : null;
+
+               for (let i = 0; i < nearCells.length; i++) {
+                  if (nearCells[i].cell === "~") {
+                     let attackResult = this.playerBoard.receiveAttack(
+                        nearCells[i].row,
+                        nearCells[i].column
+                     );
+
+                     // update _cpuNextAttack
+                     if (attackResult && attackResult.symbol === "X") {
+                        _cpuNextAttack = { ...nearCells[i] };
+                        updateNextAttackCoordinates();
+                     } else {
+                        _cpuNextAttack = null;
+                     }
+
+                     break;
+                  } else {
+                     cellsCounter++;
+                  }
+               }
+
+               if (cellsCounter === nearCells.length) {
+                  _cpuPreviousAttack = null;
+                  attackRandomCell();
+               }
+
+               // attack a random cell
+            } else if (_cpuPreviousAttack === null) {
+               attackRandomCell();
             }
          };
 

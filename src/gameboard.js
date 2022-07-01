@@ -217,7 +217,11 @@ const Gameboard = function () {
       }
 
       _board[row][cell] = symbol;
-      return this;
+      return {
+         row,
+         column: cell,
+         symbol,
+      };
    };
 
    const allShipsSunk = function () {
