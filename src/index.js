@@ -171,8 +171,8 @@ function placeNewShip(e) {
                   // print error messages
                } catch (e) {
                   if (
-                     e.message === "Ship expands to wrong coordinates" ||
-                     e.message === "A new ship cannot be place over another"
+                     e.message === "New ship coordinates are invalid" ||
+                     e.message === "Can't place new ship over another"
                   ) {
                      errorMessage.textContent = "Error: " + e.message;
                   } else {

@@ -116,7 +116,6 @@ const Game = (function () {
             };
 
             if (_cpuPreviousAttack && _cpuNextAttack) {
-               console.log("previousAttack and nextAttack are defined");
                try {
                   let attackResult = this.playerBoard.receiveAttack(
                      _cpuNextAttack.row,
@@ -144,7 +143,6 @@ const Game = (function () {
                }
                // check and attack a cell that is around an X
             } else if (_cpuPreviousAttack) {
-               console.log("previousAttack is defined and nextAttack is not");
                let pb = playerBoard.getBoard();
                let { row, column, symbol } = _cpuPreviousAttack;
                let nearCells = [];

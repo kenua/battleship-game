@@ -98,9 +98,9 @@ const Gameboard = function () {
          let currentCoor = shipCoordinates[i];
 
          if (currentCoor[0] > 9 || currentCoor[0] < 0)
-            throw new Error("Ship expands to wrong coordinates");
+            throw new Error("New ship coordinates are invalid");
          if (currentCoor[1] > 9 || currentCoor[1] < 0)
-            throw new Error("Ship expands to wrong coordinates");
+            throw new Error("New ship coordinates are invalid");
       }
 
       let newShip = Ship(length, shipCoordinates);
@@ -120,7 +120,7 @@ const Gameboard = function () {
                               shipCoors[1] === newShipCoors[1]
                            ) {
                               throw new Error(
-                                 "A new ship cannot be place over another"
+                                 "Can't place new ship over another"
                               );
                            }
                         });
