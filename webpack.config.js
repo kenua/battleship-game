@@ -9,11 +9,11 @@ module.exports = {
    output: {
       filename: "[name][contenthash].js",
       clean: true,
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "docs"),
    },
    devtool: "inline-source-map",
    devServer: {
-      static: "./dist",
+      static: "./docs",
    },
    optimization: {
       runtimeChunk: "single",
