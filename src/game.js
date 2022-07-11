@@ -84,33 +84,33 @@ const Game = (function () {
                   case "above":
                      if (pb[_cpuNextAttack.row - 1]) {
                         _cpuNextAttack.row = _cpuNextAttack.row - 1;
-                     } else {
-                        _cpuNextAttack = null;
+                        return;
                      }
+                     _cpuNextAttack = null;
                      break;
 
                   case "next":
                      if (pb[_cpuNextAttack.row][_cpuNextAttack.column + 1]) {
                         _cpuNextAttack.column = _cpuNextAttack.column + 1;
-                     } else {
-                        _cpuNextAttack = null;
+                        return;
                      }
+                     _cpuNextAttack = null;
                      break;
 
                   case "below":
                      if (pb[_cpuNextAttack.row + 1]) {
                         _cpuNextAttack.row = _cpuNextAttack.row + 1;
-                     } else {
-                        _cpuNextAttack = null;
+                        return;
                      }
+                     _cpuNextAttack = null;
                      break;
 
                   case "before":
                      if (pb[_cpuNextAttack.row][_cpuNextAttack.column - 1]) {
                         _cpuNextAttack.column = _cpuNextAttack.column - 1;
-                     } else {
-                        _cpuNextAttack = null;
+                        return;
                      }
+                     _cpuNextAttack = null;
                      break;
                }
             };
@@ -144,7 +144,7 @@ const Game = (function () {
                // check and attack a cell that is around an X
             } else if (_cpuPreviousAttack) {
                let pb = playerBoard.getBoard();
-               let { row, column, symbol } = _cpuPreviousAttack;
+               let { row, column } = _cpuPreviousAttack;
                let nearCells = [];
                let cellsCounter = 0;
 
