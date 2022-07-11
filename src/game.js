@@ -51,15 +51,15 @@ const Game = (function () {
       }
    };
 
-   const takeTurn = function (row, cell) {
+   const takeTurn = function (row, column) {
       if (!_canGameStart) return this;
 
       if (!_winnerMessage) {
          let attackRandomCell = () => {
             try {
                let row = Math.floor(Math.random() * 10);
-               let cell = Math.floor(Math.random() * 10);
-               let attackResult = this.playerBoard.receiveAttack(row, cell);
+               let column = Math.floor(Math.random() * 10);
+               let attackResult = this.playerBoard.receiveAttack(row, column);
 
                _cpuPreviousAttack =
                   attackResult && attackResult.symbol === "X"
@@ -215,7 +215,7 @@ const Game = (function () {
          };
 
          // attack computer
-         _computerBoard.receiveAttack(row, cell);
+         _computerBoard.receiveAttack(row, column);
 
          if (_computerBoard.allShipsSunk()) {
             _winnerMessage = "Player won the match";
