@@ -1,13 +1,20 @@
 import Game from "./game.js";
 import "./scss/styles.scss";
 
-const playerBoard = document.getElementById("playerBoard");
-const cpuBoardContainer = document.getElementById("cpu-board-container");
-const cpuBoard = document.getElementById("cpuBoard");
-const buttonsContainer = document.getElementById("buttons-container");
-const shipTableCounters = document.getElementsByClassName("placed-counter");
-const errorMessage = document.getElementById("error-message");
-const startBtn = document.getElementById("start-button");
+// # NEW CODE
+// remove later "new" from every variable or function name
+const newPlayerBoard = document.getElementById("player-board");
+const newPlayerShipsGrid = document.getElementById("player-ships-grid");
+const opponentBoardContainer = document.getElementById('opponent-board-container');
+const newOpponentBoard = document.getElementById("opponent-board");
+const newOpponentShipsGrid = document.getElementById("opponent-ships-grid");
+const newShipButtonsContainer = document.getElementById('ship-buttons');
+const shipButtons = document.getElementsByClassName('new-button');
+const shipsCounters = document.getElementsByClassName('counter');
+const newStartBtn = document.getElementById('new-start-button');
+const playAgainContainer = document.getElementById('play-again-container');
+const winnerMessage = document.getElementById('winner-message');
+const playAgainBtn = document.getElementById('play-again-button');
 
 const playerBoardCells = [];
 const cpuBoardCells = [];
@@ -19,7 +26,33 @@ let previousClickedBtn = null;
 let currentCell = null;
 let cellsToHighlight = [];
 
-// generate player and cpu cells
+// # GENERATE PLAYER'S AND OPPONENT'S BOARD
+// add letters
+let letters = ['a','b','c','d','e','f','g','h','i','j'];
+for (let i = 0; i < 10; i++) {
+   let letterCell = document.createElement('div');
+   letterCell.className = 'new-board__cell new-board__cell--letter';
+   letterCell.textContent = letters[i];
+   newPlayerBoard.append(letterCell);
+
+   let letterCellClone = letterCell.cloneNode();
+   letterCellClone.textContent = letters[i];
+   newOpponentBoard.append(letterCellClone);
+}
+
+// add numbers
+for (let i = 0; i < 10; i++) {
+   let numberCell = document.createElement('div');
+   numberCell.className = 'new-board__cell new-board__cell--number';
+   numberCell.textContent = i + 1;
+   newPlayerBoard.append(numberCell);
+
+   let numberCellClone = numberCell.cloneNode();
+   numberCellClone.textContent = i + 1;
+   newOpponentBoard.append(numberCellClone);
+}
+
+// add cells for ships
 for (let row = 0; row < 10; row++) {
    playerBoardCells.push([]);
    cpuBoardCells.push([]);
@@ -28,43 +61,46 @@ for (let row = 0; row < 10; row++) {
       let cellBtn = document.createElement("button");
 
       cellBtn.type = "button";
-      cellBtn.className = "board__cell";
+      cellBtn.className = "new-board__cell new-board__cell--ship";
       cellBtn.dataset.row = row;
       cellBtn.dataset.cell = cell;
       cellBtn.dataset.filled = "false";
-      playerBoard.append(cellBtn);
+      newPlayerShipsGrid.append(cellBtn);
       playerBoardCells[row].push(cellBtn);
 
       let clone = cellBtn.cloneNode();
-      cpuBoard.append(clone);
+      newOpponentShipsGrid.append(clone);
       cpuBoardCells[row].push(clone);
    }
 }
 
-buttonsContainer.addEventListener("click", handleClickedButtons);
-playerBoard.addEventListener("mouseover", showPreviewHandler);
-playerBoard.addEventListener("mouseout", removeShipPreview);
-playerBoard.addEventListener("click", placeNewShip);
-playerBoard.addEventListener("contextmenu", removeShip);
+newShipButtonsContainer.addEventListener('click', handleClickedButtons);
+newPlayerShipsGrid.addEventListener("mouseover", showPreviewHandler);
+newPlayerShipsGrid.addEventListener("mouseout", removeShipPreview);
+newPlayerShipsGrid.addEventListener("click", placeNewShip);
+newPlayerShipsGrid.addEventListener("contextmenu", removeShip);
 window.addEventListener("keydown", rotateShip);
-startBtn.addEventListener("click", initializeGame);
+newStartBtn.addEventListener("click", initializeGame);
+playAgainBtn.addEventListener('click', resetGame);
 
 function handleClickedButtons(e) {
-   let target = e.target;
+   let buttonNode = e.target.closest('button.new-button');
+
+   if (!buttonNode) return;
 
    // handle buttons that change "length" variable
-   if (target.dataset.length) {
-      length = +target.dataset.length;
+   if (buttonNode.dataset.squares) {
+      length = +buttonNode.dataset.squares;
 
       if (previousClickedBtn) {
-         previousClickedBtn.classList.remove("button--highlighted");
+         previousClickedBtn.classList.remove("new-button__button--active");
       }
 
-      target.classList.add("button--highlighted");
-      previousClickedBtn = target;
+      buttonNode.classList.add("new-button__button--active");
+      previousClickedBtn = buttonNode;
 
       // handle rotation-button
-   } else if (target.id === "rotation-buttton") {
+   } else if (buttonNode.id === "rotation-buttton") {
       if (direction === "horizontal") {
          direction = "vertical";
       } else {
@@ -137,48 +173,34 @@ function placeNewShip(e) {
 
    if (length && target.dataset.row && target.dataset.cell) {
       shipsInfo = Game.playerBoard.getShips();
-      errorMessage.textContent = ""; // clear previous error message
+      //errorMessage.textContent = ""; // clear previous error message
 
       for (let type in shipsInfo) {
          // identify what type of ship the user is going to place
          if (shipsInfo[type].length === length) {
             if (shipsInfo[type].ships.length < shipsInfo[type].max) {
                // place new ship
-               try {
-                  Game.playerBoard.placeShip(
-                     [+target.dataset.row, +target.dataset.cell],
-                     length,
-                     direction.slice(0, 3)
-                  );
-                  shipsInfo = Game.playerBoard.getShips();
+               Game.playerBoard.placeShip(
+                  [+target.dataset.row, +target.dataset.cell],
+                  length,
+                  direction.slice(0, 3)
+               );
+               shipsInfo = Game.playerBoard.getShips();
 
-                  // disable ship button when getting to maximum number of ships placed
-                  if (shipsInfo[type].ships.length === shipsInfo[type].max) {
-                     length = null;
-                     previousClickedBtn.disabled = true;
-                     previousClickedBtn.classList.remove("button--highlighted");
-                  }
+               // disable ship button when getting to maximum number of ships placed
+               if (shipsInfo[type].ships.length === shipsInfo[type].max) {
+                  length = null;
+                  previousClickedBtn.disabled = true;
+                  previousClickedBtn.classList.remove("new-button__button--active");
+               }
 
-                  updatePlayerBoard();
-                  removeShipPreview();
-                  updateShipsTable();
+               updatePlayerBoard();
+               removeShipPreview();
+               updateButtonsCounter();
 
-                  if (Game.playerBoard.isArmyComplete()) {
-                     startBtn.disabled = false;
-                     startBtn.style.visibility = "visible";
-                  }
-
-                  // print error messages
-               } catch (e) {
-                  if (
-                     e.message === "New ship coordinates are invalid" ||
-                     e.message === "Can't place new ship over another"
-                  ) {
-                     errorMessage.textContent = "Error: " + e.message;
-                  } else {
-                     errorMessage.textContent =
-                        "Error: An error occurred while trying to place a new ship";
-                  }
+               if (Game.playerBoard.isArmyComplete()) {
+                  newStartBtn.disabled = false;
+                  newStartBtn.style.display = "inline-block";
                }
             }
          }
@@ -202,12 +224,15 @@ function updatePlayerBoard() {
    }
 }
 
-function updateShipsTable() {
-   let index = 0;
+function updateButtonsCounter() {
+   let shipsInfo = Game.playerBoard.getShips();
+   let iterator = 0;
 
    for (let type in shipsInfo) {
-      shipTableCounters[index].textContent = shipsInfo[type].ships.length;
-      index++;
+      let difference = shipsInfo[type].max - shipsInfo[type].ships.length;
+
+      shipsCounters[iterator].textContent = difference;
+      iterator++;
    }
 }
 
@@ -226,7 +251,6 @@ function removeShip(e) {
       );
 
       if (msg.includes("Removed ship with the following coordinates:")) {
-         let shipButtons = buttonsContainer.querySelectorAll(".button");
          let index = 0;
 
          shipsInfo = Game.playerBoard.getShips();
@@ -241,13 +265,13 @@ function removeShip(e) {
          }
 
          if (!Game.playerBoard.isArmyComplete()) {
-            startBtn.disabled = true;
-            startBtn.style.visibility = "hidden";
+            newStartBtn.disabled = true;
+            newStartBtn.style.display = "none";
          }
 
          updatePlayerBoard();
          showShipPreview(currentCell);
-         updateShipsTable();
+         updateButtonsCounter();
       }
    }
 
@@ -269,15 +293,15 @@ function rotateShip(e) {
 
 function initializeGame() {
    if (Game.init()) {
-      playerBoard.removeEventListener("mouseover", showPreviewHandler);
-      playerBoard.removeEventListener("mouseout", removeShipPreview);
-      playerBoard.removeEventListener("click", placeNewShip);
-      playerBoard.removeEventListener("contextmenu", removeShip);
-      startBtn.disabled = true;
-      buttonsContainer.parentElement.style.display = "none";
-      cpuBoardContainer.style.display = "block";
-
-      cpuBoard.addEventListener("click", attackCpuBoard);
+      newPlayerShipsGrid.removeEventListener("mouseover", showPreviewHandler);
+      newPlayerShipsGrid.removeEventListener("mouseout", removeShipPreview);
+      newPlayerShipsGrid.removeEventListener("click", placeNewShip);
+      newPlayerShipsGrid.removeEventListener("contextmenu", removeShip);
+      newStartBtn.disabled = true;
+      newStartBtn.style.display = 'none';
+      newShipButtonsContainer.parentElement.style.display = "none";
+      opponentBoardContainer.style.display = "block";
+      newOpponentShipsGrid.addEventListener("click", attackCpuBoard);
    }
 }
 
@@ -300,19 +324,9 @@ function attackCpuBoard(e) {
          turnResult.search &&
          turnResult.search(/Player|Computer won the match/gi) >= 0
       ) {
-         let div = document.createElement("div");
-         let p = document.createElement("p");
-         let button = document.createElement("button");
-
-         div.className = "reset-container";
-         p.textContent = turnResult;
-         button.className = "button";
-         button.textContent = "Reset Game";
-         div.append(p, button);
-         document.body.firstElementChild.after(div);
-
-         button.addEventListener("click", resetGame);
-         cpuBoard.removeEventListener("click", attackCpuBoard);
+         playAgainContainer.style.display = 'block';
+         playAgainBtn.disabled = false;
+         winnerMessage.textContent = turnResult;
       }
    }
 }
@@ -336,20 +350,20 @@ function updateCpuBoard() {
 function resetGame() {
    Game.reset();
 
-   document.body.firstElementChild.nextElementSibling.remove();
+   playAgainContainer.style.display = '';
+   playAgainBtn.disabled = true;
    updateCpuBoard();
-   cpuBoard.removeEventListener("click", attackCpuBoard);
-   playerBoard.addEventListener("mouseover", showPreviewHandler);
-   playerBoard.addEventListener("mouseout", removeShipPreview);
-   playerBoard.addEventListener("click", placeNewShip);
-   playerBoard.addEventListener("contextmenu", removeShip);
+   opponentBoardContainer.style.display = "";
+   newPlayerShipsGrid.addEventListener("mouseover", showPreviewHandler);
+   newPlayerShipsGrid.addEventListener("mouseout", removeShipPreview);
+   newPlayerShipsGrid.addEventListener("click", placeNewShip);
+   newPlayerShipsGrid.addEventListener("contextmenu", removeShip);
    updatePlayerBoard();
-   buttonsContainer.parentElement.style.display = "block";
-   [...buttonsContainer.querySelectorAll(".button")].forEach(
+   newShipButtonsContainer.parentElement.style.display = "";
+   [...shipButtons].forEach(
       (button) => (button.disabled = false)
    );
-   [...shipTableCounters].forEach((counter) => (counter.textContent = "0"));
-   cpuBoardContainer.style.display = "";
-   startBtn.disabled = true;
-   startBtn.style.visibility = "hidden";
+   updateButtonsCounter();
+   playAgainContainer.style.display = '';
+   playAgainBtn.disabled = true;
 }
