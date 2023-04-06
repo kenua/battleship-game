@@ -3,7 +3,9 @@
    License: none (public domain)
 */
 @use './variables' as *;
-
+* {
+	box-sizing: border-box;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,13 +31,13 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html {
+	font-size: 62.5%;
+}
 body {
-	font-family: monospace;
-   text-shadow: 0 0 10px $green;
-	line-height: 1;
-   background-color: black;
-   color: $green;
-	margin: 16px;
+	font-family: 'Poppins', sans-serif;
+   background-color: $white;
+   color: $black;
 }
 ol, ul {
 	list-style: none;
@@ -54,4 +56,12 @@ table {
 }
 p {
 	line-height: 1.5;
+}
+button {
+	background-color: transparent;
+	font-size: inherit;
+	font-family: inherit;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }

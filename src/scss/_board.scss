@@ -3,16 +3,131 @@
 
 $cellWidth: 30px;
 
-.board-container {
-   h1 {
+// NEW
+.wrapper {
+   padding: 16px;
+}
+.new-board-container {
+   position: relative;
+
+   &__title {
       text-align: center;
-      text-transform: uppercase;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      text-transform: capitalize;
+      font-size: 2rem;
+      margin-bottom: 1.8rem;
    }
 }
+.new-board-container--opponent {
+   margin-top: 32px;
+   display: none;
+}
+.new-board {
+   font-size: 2rem;
+   font-weight: bold;
+   text-transform: uppercase;
+   color: $black;
+   display: grid;
+   grid-template-columns: repeat(11, 30px);
+   grid-template-rows: repeat(11, 30px);
+   justify-items: center;
+   justify-content: center;
+   margin: 0 auto;
+
+   &__cell {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 125ms ease-in-out;
+   }
+   &__cell--empty {
+      grid-column: 1;
+      grid-row: 1;
+   }
+   &__cell--letter {
+      grid-row: 1;
+   }
+   &__cell--number {
+      grid-column: 1;
+   }
+   &__cell--ship {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: normal;
+      background-color: $white;
+      &:hover {
+         background-color: $blue;
+      }
+   }
+   &__ship-cells-subgrid {
+      background-color: $blue;
+      padding: 2px;
+      grid-column: 2 / -1;
+      grid-row: 2 / -1;
+      display: grid;
+      grid-template-columns: repeat(10, 27.8px);
+      grid-template-rows: repeat(10, 27.8px);
+      gap: 2px;
+   }
+}
+.buttons-container {
+   text-align: center;
+   font-size: 1.6rem;
+   margin: 30px 0;
+   padding: 30px 16px;
+   border-top: 3px dashed $blue;
+
+   &__text {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+   }
+}
+.new-button {
+   font-weight: bold;
+   display: inline-block;
+   margin-bottom: 24px;
+   border: 2px solid $blue;
+   padding: 6px 12px;
+   border-radius: 100px;
+   position: relative;
+   overflow: hidden;
+   box-shadow: 0 5px 5px #00000052;
+   transition: box-shadow 250ms ease-in-out;
+
+   &::before {
+      content: '';
+      display: block;
+      background-color: $blue;
+      width: 0%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: width 250ms ease-in-out;
+   }
+   &:hover {
+      box-shadow: 0 5px 5px #00000013;
+
+      &::before {
+         width: 100%;
+      }
+   }
+   &__button--active {
+      &::before {
+         width: 100%;
+      }
+   }
+}
+.new-button--start-game {
+   display: none;
+}
+.mr {
+   margin-right: 24px;
+}
+// OLD
 .board {
-   font-size: 18px;
+   //font-size: 18px;
    display: grid;
    grid-template-columns: $cellWidth auto;
    justify-content: center;

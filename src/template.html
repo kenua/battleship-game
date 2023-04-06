@@ -8,107 +8,106 @@
    <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-   <section class="grid">
-      <!-- PLAYER BOARD -->
-      <div class="board-container player-board">
-         <h1>Your Board</h1>
-         <div class="board">
-            <!-- board letters -->
-            <div class="board__letters-container">
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
+   <div class="wrapper">
+      <!--When you finish the new design for the ui, remove "new" from class names-->
+      <div class="boards-wrapper">
+         <div class="new-board-container">
+            <h1 class="new-board-container__title">My Ships</h1>
+            <div id="player-board" class="new-board">
+               <div class="new-board__cell new-board__cell--empty"></div>
+               <div id="player-ships-grid" class="new-board__ship-cells-subgrid"></div>
             </div>
-   
-            <!-- board digits -->
-            <div class="board__digits-container">
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-               <div class="board__cell"></div>
-            </div>
-   
-            <div id="playerBoard" class="board__board"></div>
          </div>
-         <p id="error-message"></p>
+
+         <div class="new-board-container new-board-container--opponent">
+            <h1 class="new-board-container__title">Opponent's Ships</h1>
+            <div id="opponent-board" class="new-board">
+               <div class="new-board__cell new-board__cell--empty"></div>
+               <div id="opponent-ships-grid" class="new-board__ship-cells-subgrid"></div>
+            </div>
+         </div>
       </div>
 
-      <!-- CONTROLS & OPPONENT'S BOARD -->
-      <div>
-         <div class="player-buttons">
-            <ul id="buttons-container">
-               <li>
-                  <button class="button" data-length="5">Carrier</button>
-               </li>
-               <li>
-                  <button class="button" data-length="4">Battleship</button>
-               </li>
-               <li>
-                  <button class="button" data-length="3">Cruiser</button>
-               </li>
-               <li>
-                  <button class="button" data-length="2">Destroyer</button>
-               </li>
-               <li>
-                  <button id="rotation-buttton" class="button">Rotate Ship (Q)</button>
-               </li>
-            </ul>
+      <div class="buttons-container">
+         <div id="ship-buttons">
+            <p class="buttons-container__text">Place Your Ships</p>
+            <button type="button" data-squares="5" class="new-button mr">
+               <span class="counter">5</span> x
+               Carrier (A)
+            </button>
+   
+            <button type="button" data-squares="4" class="new-button mr">
+               <span class="counter">4</span> x
+               Battleship (B)
+            </button>
+   
+            <button type="button" data-squares="3" class="new-button mr">
+               <span class="counter">3</span> x
+               Cruiser (C)
+            </button>
+   
+            <button type="button" data-squares="2" class="new-button mr">
+               <span class="counter">4</span> x
+               Destroyer (D)
+            </button>
 
-            <table class="ships-table">
-               <thead>
-                  <tr>
-                     <th>Ship Class</th>
-                     <th>Size</th>
-                     <th>Max</th>
-                     <th>Placed</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td>Carrier (A)</td>
-                     <td>5</td>
-                     <td>1</td>
-                     <td class="placed-counter">0</td>
-                  </tr>
-                  <tr>
-                     <td>Battleship (B)</td>
-                     <td>4</td>
-                     <td>2</td>
-                     <td class="placed-counter">0</td>
-                  </tr>
-                  <tr>
-                     <td>Cruiser (C)</td>
-                     <td>3</td>
-                     <td>3</td>
-                     <td class="placed-counter">0</td>
-                  </tr>
-                  <tr>
-                     <td>Destroyer (D)</td>
-                     <td>2</td>
-                     <td>4</td>
-                     <td class="placed-counter">0</td>
-                  </tr>
-               </tbody>
-            </table>
-
-            <button id="start-button" class="button" disabled>Start Battle</button>
+            <button type="button" id="rotation-button" class="new-button">
+               Rotate Ship
+            </button>
          </div>
 
-         <div id="cpu-board-container" class="board-container">
-            <h1>opponent's board</h1>
+         <button type="button" class="new-button new-button--start-game">Start Game</button>
+      </div>
+      <script>
+         // # ADD CELLS TO PLAYER AND OPPONENT BOARDS
+         // const playerBoard = document.querySelector('#player-board');
+         // const playerSubgrid = playerBoard.lastElementChild;
+         // const opponentBoard = document.querySelector('#opponent-board');
+         // const opponentSubgrid = opponentBoard.lastElementChild;
+
+         // let appendLetterCells = (nodeRef) => {
+         //    let letters = ['a','b','c','d','e','f','g','h','i','j'];
+         //    for (let i = 0; i < 10; i++) {
+         //       let letterCell = document.createElement('div');
+         //       letterCell.className = 'new-board__cell new-board__cell--letter';
+         //       letterCell.textContent = letters[i];
+         //       nodeRef.append(letterCell);
+         //    }
+         // };
+         // let appendNumberCells = (nodeRef) => {
+         //    for (let i = 0; i < 10; i++) {
+         //       let numberCell = document.createElement('div');
+         //       numberCell.className = 'new-board__cell new-board__cell--number';
+         //       numberCell.textContent = i + 1;
+         //       nodeRef.append(numberCell);
+         //    }
+         // };
+         // let appendShipCells = (nodeRef) => {
+         //    for (let i = 0; i < 100; i++) {
+         //       let shipCell = document.createElement('div');
+         //       shipCell.className = 'new-board__cell new-board__cell--ship';
+         //       nodeRef.append(shipCell);
+         //    }
+         // };
+
+         // appendLetterCells(playerBoard);
+         // appendNumberCells(playerBoard);
+         // //appendShipCells(playerSubgrid);
+
+         // appendLetterCells(opponentBoard);
+         // appendNumberCells(opponentBoard);
+         // //appendShipCells(opponentSubgrid);
+
+      
+      </script>
+
+
+
+
+      <section class="grid">
+         <!-- PLAYER BOARD -->
+         <div class="board-container player-board">
+            <h1 class="board__title">My Ships</h1>
             <div class="board">
                <!-- board letters -->
                <div class="board__letters-container">
@@ -138,13 +137,111 @@
                   <div class="board__cell"></div>
                </div>
       
-               <div id="cpuBoard" class="board__board"></div>
+               <div id="playerBoard" class="board__board"></div>
+            </div>
+            <p id="error-message"></p>
+         </div>
+
+         <!-- CONTROLS & OPPONENT'S BOARD -->
+         <div>
+            <div class="player-buttons">
+               <ul id="buttons-container">
+                  <li>
+                     <button class="button" data-length="5">Carrier</button>
+                  </li>
+                  <li>
+                     <button class="button" data-length="4">Battleship</button>
+                  </li>
+                  <li>
+                     <button class="button" data-length="3">Cruiser</button>
+                  </li>
+                  <li>
+                     <button class="button" data-length="2">Destroyer</button>
+                  </li>
+                  <li>
+                     <!-- <button id="rotation-buttton" class="button">Rotate Ship (Q)</button> -->
+                  </li>
+               </ul>
+
+               <table class="ships-table">
+                  <thead>
+                     <tr>
+                        <th>Ship Class</th>
+                        <th>Size</th>
+                        <th>Max</th>
+                        <th>Placed</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Carrier (A)</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td class="placed-counter">0</td>
+                     </tr>
+                     <tr>
+                        <td>Battleship (B)</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td class="placed-counter">0</td>
+                     </tr>
+                     <tr>
+                        <td>Cruiser (C)</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td class="placed-counter">0</td>
+                     </tr>
+                     <tr>
+                        <td>Destroyer (D)</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td class="placed-counter">0</td>
+                     </tr>
+                  </tbody>
+               </table>
+
+               <button id="start-button" class="button" disabled>Start Battle</button>
+            </div>
+
+            <div id="cpu-board-container" class="board-container">
+               <h1>Opponent's Ships</h1>
+               <div class="board">
+                  <!-- board letters -->
+                  <div class="board__letters-container">
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                  </div>
+         
+                  <!-- board digits -->
+                  <div class="board__digits-container">
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                     <div class="board__cell"></div>
+                  </div>
+         
+                  <div id="cpuBoard" class="board__board"></div>
+               </div>
             </div>
          </div>
-      </div>
-   </section>
+      </section>
+   </div>
 
-   <section class="instructions">
+   <section class="instructions"  style="display: none;">
       <h1>Instructions</h1>
       <p>
          To place a new ship on your board select a ship and left click a 

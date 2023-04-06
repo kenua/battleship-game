@@ -1,4 +1,19 @@
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 950px) {
+   // NEW
+   .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 0;
+   }
+   .boards-wrapper {
+      display: flex;
+      justify-content: space-around;
+   }
+   .new-board-container--opponent {
+      margin-top: 0;
+   }
+
+   // OLD
    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
