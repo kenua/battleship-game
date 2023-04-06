@@ -1,5 +1,4 @@
 @media only screen and (min-width: 950px) {
-   // NEW
    .wrapper {
       max-width: 900px;
       margin: 0 auto;
@@ -9,32 +8,7 @@
       display: flex;
       justify-content: space-around;
    }
-   .new-board-container--opponent {
+   .board-container--opponent {
       margin-top: 0;
-   }
-
-   // OLD
-   .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-   }
-   .ships-table {
-      width: 100%;
-   }
-   #cpu-board-container {
-      margin-top: 0;
-   }
-   .player-buttons {
-      ul {
-         margin: 0;
-         margin-bottom: 2rem;
-      }
-      ul li {
-         display: block;
-      }
-      .button {
-         display: block;
-         width: 100%;
-      }
    }
 }

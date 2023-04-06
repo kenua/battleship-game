@@ -9,23 +9,22 @@
 </head>
 <body>
    <div class="wrapper">
-      <!--When you finish the new design for the ui, remove "new" from class names-->
       <div class="boards-wrapper mb">
          <!-- PLAYER BOARD -->
-         <div class="new-board-container">
-            <h1 class="new-board-container__title">My Ships</h1>
-            <div id="player-board" class="new-board">
-               <div class="new-board__cell new-board__cell--empty"></div>
-               <div id="player-ships-grid" class="new-board__ship-cells-subgrid"></div>
+         <div class="board-container">
+            <h1 class="board-container__title">My Ships</h1>
+            <div id="player-board" class="board">
+               <div class="board__cell board__cell--empty"></div>
+               <div id="player-ships-grid" class="board__ship-cells-subgrid"></div>
             </div>
          </div>
 
          <!-- OPPONENT BOARD -->
-         <div id="opponent-board-container" class="new-board-container new-board-container--opponent d-none">
-            <h1 class="new-board-container__title">Opponent's Ships</h1>
-            <div id="opponent-board" class="new-board">
-               <div class="new-board__cell new-board__cell--empty"></div>
-               <div id="opponent-ships-grid" class="new-board__ship-cells-subgrid"></div>
+         <div id="opponent-board-container" class="board-container board-container--opponent d-none">
+            <h1 class="board-container__title">Opponent's Ships</h1>
+            <div id="opponent-board" class="board">
+               <div class="board__cell board__cell--empty"></div>
+               <div id="opponent-ships-grid" class="board__ship-cells-subgrid"></div>
             </div>
          </div>
       </div>
@@ -34,37 +33,33 @@
       <div class="buttons-container">
          <div id="ship-buttons">
             <p class="mb font-size-1">Place Your Ships</p>
-            <button type="button" data-squares="5" class="new-button mr">
+            <button type="button" data-squares="5" class="button button--ships  mr">
                <span class="counter">1</span> x
                Carrier (A)
             </button>
    
-            <button type="button" data-squares="4" class="new-button mr">
+            <button type="button" data-squares="4" class="button button--ships  mr">
                <span class="counter">4</span> x
                Battleship (B)
             </button>
    
-            <button type="button" data-squares="3" class="new-button mr">
+            <button type="button" data-squares="3" class="button button--ships  mr">
                <span class="counter">3</span> x
                Cruiser (C)
             </button>
    
-            <button type="button" data-squares="2" class="new-button mr">
+            <button type="button" data-squares="2" class="button button--ships  mr">
                <span class="counter">4</span> x
                Destroyer (D)
             </button>
-
-            <button type="button" id="rotation-button" class="new-button">
-               Rotate Ship
-            </button>
          </div>
 
-         <button type="button" id="new-start-button" class="new-button d-none">Start Game</button>
+         <button type="button" id="start-button" class="button d-none">Start Game</button>
       </div>
 
       <div id="play-again-container" class="text-center d-none">
          <p id="winner-message" class="mb font-size-1"></p>
-         <button type="button" id="play-again-button" class="new-button" disabled>Play Again</button>
+         <button type="button" id="play-again-button" class="button" disabled>Play Again</button>
       </div>
    </div>
 

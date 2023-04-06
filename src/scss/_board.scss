@@ -3,11 +3,10 @@
 
 $cellWidth: 30px;
 
-// NEW
 .wrapper {
    padding: 16px;
 }
-.new-board-container {
+.board-container {
    position: relative;
 
    &__title {
@@ -17,10 +16,10 @@ $cellWidth: 30px;
       margin-bottom: 1.8rem;
    }
 }
-.new-board-container--opponent {
+.board-container--opponent {
    margin-top: 32px;
 }
-.new-board {
+.board {
    font-size: 2rem;
    font-weight: bold;
    text-transform: uppercase;
@@ -75,7 +74,7 @@ $cellWidth: 30px;
    padding: 30px 16px;
    border-top: 3px dashed $blue;
 }
-.new-button {
+.button {
    font-weight: bold;
    font-size: 1.6rem;
    display: inline-block;
@@ -127,115 +126,4 @@ $cellWidth: 30px;
 }
 .mb {
    margin-bottom: 30px;
-}
-// OLD
-.board {
-   //font-size: 18px;
-   display: grid;
-   grid-template-columns: $cellWidth auto;
-   justify-content: center;
-}
-.board__letters-container {
-   display: grid;
-   gap: 3px;
-   grid-template-columns: repeat(10, $cellWidth);
-   grid-auto-rows: $cellWidth;
-   grid-column: 2;
-   grid-row: 1;
-   .board__cell {
-      border: none;
-
-      @for $i from 1 through 10 {
-         &:nth-child(#{$i})::before {
-            content: '#{$i}'; 
-         }
-      }
-   }
-}
-.board__digits-container {
-   display: grid;
-   gap: 3px;
-   grid-template-columns: $cellWidth;
-   grid-auto-rows: $cellWidth;
-   grid-column: 1;
-   grid-row: 2;
-   .board__cell {
-      border: none;
-
-      $letters: 'a','b','c','d','e','f','g','h','i','j';
-
-      @for $i from 1 through 10 {
-         &:nth-child(#{$i})::before {
-            content: '#{list.nth($letters, $i)}'; 
-         }
-      }
-   }
-}
-.board__cell {
-   background-color: black;
-   color: $green;
-   border: 1px solid $green;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.board__board {
-   grid-row: 2;
-   display: grid;
-   gap: 3px;
-   grid-template-columns: repeat(10, $cellWidth);
-   grid-auto-rows: $cellWidth;
-   .board__cell {
-      &:hover {
-         background-color: $green;
-         color: black;
-      }
-   }
-}
-#error-message {
-   font-size: 1rem;
-   text-align: center;
-   max-width: 500px;
-   grid-column: 1 / -1;
-   margin-top: 1rem;
-   margin-left: auto;
-   margin-right: auto;
-   padding: 0 1rem;
-}
-#cpu-board-container {
-   display: none;
-   margin-top: 2rem;
-}
-.player-buttons {
-   ul {
-      text-align: center;
-      margin: 2rem 0;
-   }
-   ul li {
-      display: inline-block;
-      margin-bottom: .5rem;
-   }
-}
-.ships-table {
-   font-size: 1rem;
-   border: 1px solid $green;
-   margin-bottom: 2rem;
-   margin-left: auto;
-   margin-right: auto;
-
-   td, th {
-      padding: .5rem;
-      border: 1px solid $green;
-   }
-}
-#start-button {
-   visibility: hidden;
-}
-.reset-container {
-   font-size: 1,5rem;
-   text-align: center;
-   margin: 3rem 0;
-   p {
-      margin-bottom: 1rem;
-   }
 }

@@ -1,17 +1,15 @@
 import Game from "./game.js";
 import "./scss/styles.scss";
 
-// # NEW CODE
-// remove later "new" from every variable or function name
-const newPlayerBoard = document.getElementById("player-board");
-const newPlayerShipsGrid = document.getElementById("player-ships-grid");
+const playerBoard = document.getElementById("player-board");
+const playerShipsGrid = document.getElementById("player-ships-grid");
 const opponentBoardContainer = document.getElementById('opponent-board-container');
-const newOpponentBoard = document.getElementById("opponent-board");
-const newOpponentShipsGrid = document.getElementById("opponent-ships-grid");
-const newShipButtonsContainer = document.getElementById('ship-buttons');
-const shipButtons = document.getElementsByClassName('new-button');
+const opponentBoard = document.getElementById("opponent-board");
+const opponentShipsGrid = document.getElementById("opponent-ships-grid");
+const shipButtonsContainer = document.getElementById('ship-buttons');
+const shipButtons = document.getElementsByClassName('button--ships');
 const shipsCounters = document.getElementsByClassName('counter');
-const newStartBtn = document.getElementById('new-start-button');
+const startBtn = document.getElementById('start-button');
 const playAgainContainer = document.getElementById('play-again-container');
 const winnerMessage = document.getElementById('winner-message');
 const playAgainBtn = document.getElementById('play-again-button');
@@ -31,25 +29,25 @@ let cellsToHighlight = [];
 let letters = ['a','b','c','d','e','f','g','h','i','j'];
 for (let i = 0; i < 10; i++) {
    let letterCell = document.createElement('div');
-   letterCell.className = 'new-board__cell new-board__cell--letter';
+   letterCell.className = 'board__cell board__cell--letter';
    letterCell.textContent = letters[i];
-   newPlayerBoard.append(letterCell);
+   playerBoard.append(letterCell);
 
    let letterCellClone = letterCell.cloneNode();
    letterCellClone.textContent = letters[i];
-   newOpponentBoard.append(letterCellClone);
+   opponentBoard.append(letterCellClone);
 }
 
 // add numbers
 for (let i = 0; i < 10; i++) {
    let numberCell = document.createElement('div');
-   numberCell.className = 'new-board__cell new-board__cell--number';
+   numberCell.className = 'board__cell board__cell--number';
    numberCell.textContent = i + 1;
-   newPlayerBoard.append(numberCell);
+   playerBoard.append(numberCell);
 
    let numberCellClone = numberCell.cloneNode();
    numberCellClone.textContent = i + 1;
-   newOpponentBoard.append(numberCellClone);
+   opponentBoard.append(numberCellClone);
 }
 
 // add cells for ships
@@ -61,30 +59,30 @@ for (let row = 0; row < 10; row++) {
       let cellBtn = document.createElement("button");
 
       cellBtn.type = "button";
-      cellBtn.className = "new-board__cell new-board__cell--ship";
+      cellBtn.className = "board__cell board__cell--ship";
       cellBtn.dataset.row = row;
       cellBtn.dataset.cell = cell;
       cellBtn.dataset.filled = "false";
-      newPlayerShipsGrid.append(cellBtn);
+      playerShipsGrid.append(cellBtn);
       playerBoardCells[row].push(cellBtn);
 
       let clone = cellBtn.cloneNode();
-      newOpponentShipsGrid.append(clone);
+      opponentShipsGrid.append(clone);
       cpuBoardCells[row].push(clone);
    }
 }
 
-newShipButtonsContainer.addEventListener('click', handleClickedButtons);
-newPlayerShipsGrid.addEventListener("mouseover", showPreviewHandler);
-newPlayerShipsGrid.addEventListener("mouseout", removeShipPreview);
-newPlayerShipsGrid.addEventListener("click", placeNewShip);
-newPlayerShipsGrid.addEventListener("contextmenu", removeShip);
+shipButtonsContainer.addEventListener('click', handleClickedButtons);
+playerShipsGrid.addEventListener("mouseover", showPreviewHandler);
+playerShipsGrid.addEventListener("mouseout", removeShipPreview);
+playerShipsGrid.addEventListener("click", placeNewShip);
+playerShipsGrid.addEventListener("contextmenu", removeShip);
 window.addEventListener("keydown", rotateShip);
-newStartBtn.addEventListener("click", initializeGame);
+startBtn.addEventListener("click", initializeGame);
 playAgainBtn.addEventListener('click', resetGame);
 
 function handleClickedButtons(e) {
-   let buttonNode = e.target.closest('button.new-button');
+   let buttonNode = e.target.closest('button.button--ships');
 
    if (!buttonNode) return;
 
@@ -93,19 +91,11 @@ function handleClickedButtons(e) {
       length = +buttonNode.dataset.squares;
 
       if (previousClickedBtn) {
-         previousClickedBtn.classList.remove("new-button__button--active");
+         previousClickedBtn.classList.remove("button__button--active");
       }
 
-      buttonNode.classList.add("new-button__button--active");
+      buttonNode.classList.add("button__button--active");
       previousClickedBtn = buttonNode;
-
-      // handle rotation-button
-   } else if (buttonNode.id === "rotation-buttton") {
-      if (direction === "horizontal") {
-         direction = "vertical";
-      } else {
-         direction = "horizontal";
-      }
    }
 }
 
@@ -191,7 +181,7 @@ function placeNewShip(e) {
                if (shipsInfo[type].ships.length === shipsInfo[type].max) {
                   length = null;
                   previousClickedBtn.disabled = true;
-                  previousClickedBtn.classList.remove("new-button__button--active");
+                  previousClickedBtn.classList.remove("button__button--active");
                }
 
                updatePlayerBoard();
@@ -199,8 +189,8 @@ function placeNewShip(e) {
                updateButtonsCounter();
 
                if (Game.playerBoard.isArmyComplete()) {
-                  newStartBtn.disabled = false;
-                  newStartBtn.style.display = "inline-block";
+                  startBtn.disabled = false;
+                  startBtn.style.display = "inline-block";
                }
             }
          }
@@ -265,8 +255,8 @@ function removeShip(e) {
          }
 
          if (!Game.playerBoard.isArmyComplete()) {
-            newStartBtn.disabled = true;
-            newStartBtn.style.display = "none";
+            startBtn.disabled = true;
+            startBtn.style.display = "none";
          }
 
          updatePlayerBoard();
@@ -293,15 +283,15 @@ function rotateShip(e) {
 
 function initializeGame() {
    if (Game.init()) {
-      newPlayerShipsGrid.removeEventListener("mouseover", showPreviewHandler);
-      newPlayerShipsGrid.removeEventListener("mouseout", removeShipPreview);
-      newPlayerShipsGrid.removeEventListener("click", placeNewShip);
-      newPlayerShipsGrid.removeEventListener("contextmenu", removeShip);
-      newStartBtn.disabled = true;
-      newStartBtn.style.display = 'none';
-      newShipButtonsContainer.parentElement.style.display = "none";
+      playerShipsGrid.removeEventListener("mouseover", showPreviewHandler);
+      playerShipsGrid.removeEventListener("mouseout", removeShipPreview);
+      playerShipsGrid.removeEventListener("click", placeNewShip);
+      playerShipsGrid.removeEventListener("contextmenu", removeShip);
+      startBtn.disabled = true;
+      startBtn.style.display = 'none';
+      shipButtonsContainer.parentElement.style.display = "none";
       opponentBoardContainer.style.display = "block";
-      newOpponentShipsGrid.addEventListener("click", attackCpuBoard);
+      opponentShipsGrid.addEventListener("click", attackCpuBoard);
    }
 }
 
@@ -354,12 +344,12 @@ function resetGame() {
    playAgainBtn.disabled = true;
    updateCpuBoard();
    opponentBoardContainer.style.display = "";
-   newPlayerShipsGrid.addEventListener("mouseover", showPreviewHandler);
-   newPlayerShipsGrid.addEventListener("mouseout", removeShipPreview);
-   newPlayerShipsGrid.addEventListener("click", placeNewShip);
-   newPlayerShipsGrid.addEventListener("contextmenu", removeShip);
+   playerShipsGrid.addEventListener("mouseover", showPreviewHandler);
+   playerShipsGrid.addEventListener("mouseout", removeShipPreview);
+   playerShipsGrid.addEventListener("click", placeNewShip);
+   playerShipsGrid.addEventListener("contextmenu", removeShip);
    updatePlayerBoard();
-   newShipButtonsContainer.parentElement.style.display = "";
+   shipButtonsContainer.parentElement.style.display = "";
    [...shipButtons].forEach(
       (button) => (button.disabled = false)
    );
