@@ -1,18 +1,17 @@
 {
   "name": "battleship",
   "version": "1.0.0",
-  "description": "A battlehips game on the browser.",
+  "description": "Battleship game on the browser",
   "private": true,
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
-    "build:watch": "npx webpack --config webpack.config.js --watch",
-    "build:server": "npx webpack serve --no-open --config webpack.config.js",
+    "build": "npx webpack --config webpack.prod.js",
+    "start": "npx webpack serve --no-open --config webpack.dev.js",
     "test": "jest test/tests/",
     "test:build": "npx babel src --out-dir test --ignore src/index.js",
     "test:build:watch": "npx babel -w src --out-dir test --ignore src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kenua",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -27,6 +26,7 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
   }
 }

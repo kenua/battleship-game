@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-   mode: "development",
    entry: {
       index: path.resolve(__dirname, "src/index"),
    },
@@ -11,17 +10,10 @@ module.exports = {
       clean: true,
       path: path.resolve(__dirname, "docs"),
    },
-   devtool: "inline-source-map",
-   devServer: {
-      static: "./docs",
-   },
-   optimization: {
-      runtimeChunk: "single",
-   },
    plugins: [
       new HtmlWebpackPlugin({
          filename: "index.html",
-         title: "Web Battleship",
+         title: "Battleship Game",
          template: path.resolve(__dirname, "src/template.html"),
       }),
    ],
@@ -31,13 +23,6 @@ module.exports = {
             test: /\.s[ac]ss$/i,
             use: ["style-loader", "css-loader", "sass-loader"],
          },
-         /*
-         {
-            test: /\.css$/i,
-            use: ["style-loader", "css-loader"],
-         },
-         */
-
          {
             test: /\.m?js$/,
             exclude: /node_modules/,
