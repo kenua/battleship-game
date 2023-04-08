@@ -1,4 +1,4 @@
-import Game from "./game.js";
+import Game from "./modules/game.js";
 import "./scss/styles.scss";
 
 const playerBoard = document.getElementById("player-board");
