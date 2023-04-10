@@ -3,9 +3,6 @@
 
 $cellWidth: 30px;
 
-.wrapper {
-   padding: 16px;
-}
 .board-container {
    position: relative;
 
@@ -112,18 +109,7 @@ $cellWidth: 30px;
       }
    }
 }
-.d-none {
-   display: none;
-}
-.text-center {
-   text-align: center;
-}
-.font-size-1 {
-   font-size: 1.6rem;
-}
-.mr {
-   margin-right: 30px;
-}
-.mb {
-   margin-bottom: 30px;
+.instructions__ul {
+   list-style: auto;
+   padding-left: 15px;
 }

@@ -32,7 +32,7 @@
       <!-- BUTTONS -->
       <div class="buttons-container">
          <div id="ship-buttons">
-            <p class="mb font-size-1">Place Your Ships</p>
+            <p class="mb font-bold">Place Your Ships</p>
             <button type="button" data-squares="5" class="button button--ships  mr">
                <span class="counter">1</span> x
                Carrier (A)
@@ -58,20 +58,25 @@
       </div>
 
       <div id="play-again-container" class="text-center d-none">
-         <p id="winner-message" class="mb font-size-1"></p>
+         <p id="winner-message" class="mb"></p>
          <button type="button" id="play-again-button" class="button" disabled>Play Again</button>
       </div>
-   </div>
 
-   <section class="instructions"  style="display: none;">
-      <h1>Instructions</h1>
-      <p>
-         To place a new ship on your board select a ship and left click a 
-         cell, to remove a ship right click it. To rotate a ship press
-         Q or use the "Rotate Ship" button. After placing 
-         all ships you can start the game. Cells mark with "/" are missed 
-         shots, and "X" are hits.
-      </p>
-   </section>
+      <!-- INSTRUCTIONS -->
+      <div class="instructions">
+         <h1 class="font-bold text-center mb">Instructions</h1>
+
+         <ol class="instructions__ul">
+            <li>To place a ship, select a ship and <strong>left click</strong> a cell</li>
+            <li>To remove a ship <strong>right click</strong> a cell</li>
+            <li>To rotate a ship press <strong>Q</strong> key</li>
+         </ol>
+   
+         <hr class="mb mt">
+   
+         <p>/ = Missed shots</p>
+         <p>X = Hits</p>
+      </div>
+   </div>
 </body>
 </html>
